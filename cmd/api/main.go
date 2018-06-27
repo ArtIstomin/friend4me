@@ -1,7 +1,3 @@
-// Copyright 2017 Emir Ribic. All rights reserved.
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file.
-
 // GORSK - Go(lang) restful starter kit
 //
 // API Docs for GORSK v1
@@ -9,9 +5,7 @@
 // 	 Terms Of Service:  N/A
 //     Schemes: http
 //     Version: 1.0.0
-//     License: MIT http://opensource.org/licenses/MIT
-//     Contact: Emir Ribic <ribice@gmail.com> https://ribice.ba
-//     Host: localhost:8080
+//     Host: localhost:3000
 //
 //     Consumes:
 //     - application/json

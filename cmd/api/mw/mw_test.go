@@ -25,10 +25,8 @@ func TestSecureHeaders(t *testing.T) {
 		t.Fatal("Did not expect http.Get to fail")
 	}
 	assert.Equal(t, "nosniff", resp.Header.Get("X-Content-Type-Options"))
-	assert.Equal(t, "off", resp.Header.Get("X-DNS-Prefetch-Control"))
 	assert.Equal(t, "DENY", resp.Header.Get("X-Frame-Options"))
-	assert.Equal(t, "max-age=5184000; includeSubDomains", resp.Header.Get("Strict-Transport-Security"))
-	assert.Equal(t, "noopen", resp.Header.Get("X-Download-Options"))
+	assert.Equal(t, "max-age=5184000; includeSubdomains; preload", resp.Header.Get("Strict-Transport-Security"))
 	assert.Equal(t, "1; mode=block", resp.Header.Get("X-XSS-Protection"))
 }
 

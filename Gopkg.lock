@@ -132,6 +132,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/unrolled/secure"
+  packages = ["."]
+  revision = "8287f3899c8e3d490748e18fe7d438629132914e"
+
+[[projects]]
+  branch = "master"
   name = "github.com/valyala/bytebufferpool"
   packages = ["."]
   revision = "e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7"
@@ -165,6 +171,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ec33d11980e71107b7ab678a61215d6beec5dd3c147defe9cd33f4007e66b36b"
+  inputs-digest = "b9df279a471263cc2f1c37c4d21418ee004143f2ffa9f57c275b6423e91be183"
   solver-name = "gps-cdcl"
   solver-version = 1
