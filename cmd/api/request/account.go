@@ -3,7 +3,7 @@ package request
 import (
 	"net/http"
 
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/internal"
 	"github.com/labstack/echo"
 )
 

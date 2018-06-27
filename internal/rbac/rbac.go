@@ -1,7 +1,7 @@
 package rbac
 
 import (
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/internal"
 	"github.com/labstack/echo"
 )
 

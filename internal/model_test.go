@@ -3,9 +3,9 @@ package model_test
 import (
 	"testing"
 
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/internal"
 
-	"github.com/artistomin/gorsk/internal/mock"
+	"github.com/artistomin/friend4me/internal/mock"
 )
 
 func TestBeforeInsert(t *testing.T) {

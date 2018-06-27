@@ -6,10 +6,10 @@ import (
 
 	"github.com/go-pg/pg"
 	// DB adapter
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/internal"
 	_ "github.com/lib/pq"
 
-	"github.com/artistomin/gorsk/cmd/api/config"
+	"github.com/artistomin/friend4me/cmd/api/config"
 )
 
 const notDeleted = "deleted_at is null"

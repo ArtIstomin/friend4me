@@ -1,7 +1,7 @@
 package mock
 
 import (
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/internal"
 )
 
 // JWT mock

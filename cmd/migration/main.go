@@ -7,9 +7,9 @@ import (
 
 	"github.com/go-pg/pg/orm"
 
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/internal"
 
-	"github.com/artistomin/gorsk/internal/auth"
+	"github.com/artistomin/friend4me/internal/auth"
 	"github.com/go-pg/pg"
 )
 

@@ -1,7 +1,7 @@
 package pgsql
 
 import (
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/internal"
 	"github.com/labstack/echo"
 
 	"github.com/go-pg/pg"

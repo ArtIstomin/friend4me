@@ -8,8 +8,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/artistomin/gorsk/cmd/api/request"
-	"github.com/artistomin/gorsk/internal/mock"
+	"github.com/artistomin/friend4me/cmd/api/request"
+	"github.com/artistomin/friend4me/internal/mock"
 )
 
 func TestAccountCreate(t *testing.T) {

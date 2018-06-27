@@ -334,7 +334,7 @@
       "description": "AccessRole represents access role type",
       "type": "integer",
       "format": "int8",
-      "x-go-package": "github.com/artistomin/gorsk/internal"
+      "x-go-package": "github.com/artistomin/friend4me/internal"
     },
     "Credentials": {
       "description": "Credentials contains login request",
@@ -349,7 +349,7 @@
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/artistomin/gorsk/cmd/api/request"
+      "x-go-package": "github.com/artistomin/friend4me/cmd/api/request"
     },
     "Password": {
       "description": "Password contains password change request",
@@ -368,7 +368,7 @@
           "x-go-name": "OldPassword"
         }
       },
-      "x-go-package": "github.com/artistomin/gorsk/cmd/api/request"
+      "x-go-package": "github.com/artistomin/friend4me/cmd/api/request"
     },
     "Register": {
       "description": "Register contains registration request",
@@ -414,7 +414,7 @@
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/artistomin/gorsk/cmd/api/request"
+      "x-go-package": "github.com/artistomin/friend4me/cmd/api/request"
     },
     "Role": {
       "description": "Role model",
@@ -433,7 +433,7 @@
           "x-go-name": "Name"
         }
       },
-      "x-go-package": "github.com/artistomin/gorsk/internal"
+      "x-go-package": "github.com/artistomin/friend4me/internal"
     },
     "UpdateUser": {
       "description": "UpdateUser contains user update data from json request",
@@ -460,7 +460,7 @@
           "x-go-name": "Phone"
         }
       },
-      "x-go-package": "github.com/artistomin/gorsk/cmd/api/request"
+      "x-go-package": "github.com/artistomin/friend4me/cmd/api/request"
     },
     "User": {
       "description": "User represents user domain model",
@@ -537,7 +537,7 @@
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/artistomin/gorsk/internal"
+      "x-go-package": "github.com/artistomin/friend4me/internal"
     }
   },
   "responses": {

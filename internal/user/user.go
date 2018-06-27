@@ -2,11 +2,11 @@
 package user
 
 import (
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/internal"
 	"github.com/labstack/echo"
 
-	"github.com/artistomin/gorsk/internal/platform/query"
-	"github.com/artistomin/gorsk/internal/platform/structs"
+	"github.com/artistomin/friend4me/internal/platform/query"
+	"github.com/artistomin/friend4me/internal/platform/structs"
 )
 
 // New creates new user application service

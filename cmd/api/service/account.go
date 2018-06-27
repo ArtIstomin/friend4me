@@ -3,12 +3,12 @@ package service
 import (
 	"net/http"
 
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/internal"
 	"github.com/labstack/echo"
 
-	"github.com/artistomin/gorsk/internal/account"
+	"github.com/artistomin/friend4me/internal/account"
 
-	"github.com/artistomin/gorsk/cmd/api/request"
+	"github.com/artistomin/friend4me/cmd/api/request"
 )
 
 // Account represents account http

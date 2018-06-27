@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"time"
 
-	"github.com/artistomin/gorsk/cmd/api/server"
+	"github.com/artistomin/friend4me/cmd/api/server"
 	"github.com/go-playground/validator"
 	"github.com/labstack/echo"
 )

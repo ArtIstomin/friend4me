@@ -5,11 +5,11 @@ import (
 
 	"github.com/labstack/echo"
 
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/internal"
 
-	"github.com/artistomin/gorsk/internal/user"
+	"github.com/artistomin/friend4me/internal/user"
 
-	"github.com/artistomin/gorsk/cmd/api/request"
+	"github.com/artistomin/friend4me/cmd/api/request"
 )
 
 // User represents user http service

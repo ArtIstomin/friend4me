@@ -7,9 +7,9 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/artistomin/gorsk/internal"
-	"github.com/artistomin/gorsk/internal/mock"
-	"github.com/artistomin/gorsk/internal/rbac"
+	"github.com/artistomin/friend4me/internal"
+	"github.com/artistomin/friend4me/internal/mock"
+	"github.com/artistomin/friend4me/internal/rbac"
 )
 
 func TestNew(t *testing.T) {

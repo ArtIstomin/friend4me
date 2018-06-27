@@ -3,7 +3,7 @@ package server_test
 import (
 	"testing"
 
-	"github.com/artistomin/gorsk/cmd/api/server"
+	"github.com/artistomin/friend4me/cmd/api/server"
 )
 
 // Improve tests

@@ -63,7 +63,7 @@
 
 [[constraint]]
   branch = "master"
-  name = "github.com/artistomin/gorsk"
+  name = "github.com/artistomin/friend4me"
 
 [[constraint]]
   name = "github.com/rs/xid"

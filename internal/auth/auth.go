@@ -7,7 +7,7 @@ import (
 
 	"github.com/rs/xid"
 
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/internal"
 
 	"golang.org/x/crypto/bcrypt"
 )

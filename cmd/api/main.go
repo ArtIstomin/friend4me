@@ -26,16 +26,16 @@
 package main
 
 import (
-	"github.com/artistomin/gorsk/cmd/api/config"
-	"github.com/artistomin/gorsk/cmd/api/mw"
-	"github.com/artistomin/gorsk/cmd/api/server"
-	"github.com/artistomin/gorsk/cmd/api/service"
-	_ "github.com/artistomin/gorsk/cmd/api/swagger"
-	"github.com/artistomin/gorsk/internal/account"
-	"github.com/artistomin/gorsk/internal/auth"
-	"github.com/artistomin/gorsk/internal/platform/postgres"
-	"github.com/artistomin/gorsk/internal/rbac"
-	"github.com/artistomin/gorsk/internal/user"
+	"github.com/artistomin/friend4me/cmd/api/config"
+	"github.com/artistomin/friend4me/cmd/api/mw"
+	"github.com/artistomin/friend4me/cmd/api/server"
+	"github.com/artistomin/friend4me/cmd/api/service"
+	_ "github.com/artistomin/friend4me/cmd/api/swagger"
+	"github.com/artistomin/friend4me/internal/account"
+	"github.com/artistomin/friend4me/internal/auth"
+	"github.com/artistomin/friend4me/internal/platform/postgres"
+	"github.com/artistomin/friend4me/internal/rbac"
+	"github.com/artistomin/friend4me/internal/user"
 	"github.com/go-pg/pg"
 	"github.com/labstack/echo"
 )

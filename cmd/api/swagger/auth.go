@@ -1,8 +1,8 @@
 package swagger
 
 import (
-	"github.com/artistomin/gorsk/cmd/api/request"
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/cmd/api/request"
+	"github.com/artistomin/friend4me/internal"
 )
 
 // Login request

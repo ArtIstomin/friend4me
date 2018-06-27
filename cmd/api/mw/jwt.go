@@ -5,10 +5,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/friend4me/internal"
 	"github.com/labstack/echo"
 
-	"github.com/artistomin/gorsk/cmd/api/config"
+	"github.com/artistomin/friend4me/cmd/api/config"
 
 	jwt "github.com/dgrijalva/jwt-go"
 )
