@@ -15,33 +15,6 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/facebookgo/clock"
-  packages = ["."]
-  revision = "600d898af40aa09a7a93ecb9265d87b0504b6f03"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/facebookgo/grace"
-  packages = [
-    "gracehttp",
-    "gracenet"
-  ]
-  revision = "4afe952a37a495ae4ac0c1d4ce5f66e91058d149"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/facebookgo/httpdown"
-  packages = ["."]
-  revision = "a3b1354551a26449fbe05f5d855937f6e7acbd71"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/facebookgo/stats"
-  packages = ["."]
-  revision = "1b76add642e42c6ffba7211ad7b3939ce654526e"
-
-[[projects]]
-  branch = "master"
   name = "github.com/fortytw2/dockertest"
   packages = ["."]
   revision = "a73397bdeff4b713648d4b2e7fc655eb9a85fb6b"
@@ -146,29 +119,6 @@
   version = "v1.0.0"
 
 [[projects]]
-  branch = "master"
-  name = "github.com/artistomin/gorsk"
-  packages = [
-    "cmd/api/config",
-    "cmd/api/mw",
-    "cmd/api/request",
-    "cmd/api/server",
-    "cmd/api/service",
-    "cmd/api/swagger",
-    "internal",
-    "internal/account",
-    "internal/auth",
-    "internal/mock",
-    "internal/mock/mockdb",
-    "internal/platform/postgres",
-    "internal/platform/query",
-    "internal/platform/structs",
-    "internal/rbac",
-    "internal/user"
-  ]
-  revision = "1f667cd98b892e2fdd342640a3b35709456ac050"
-
-[[projects]]
   name = "github.com/rs/xid"
   packages = ["."]
   revision = "2c7e97ce663ff82c49656bca3048df0fdd83c5f9"
@@ -212,15 +162,9 @@
   ]
   revision = "c4afb3effaa53fd9a06ca61262dc7ce8df4c081b"
 
-[[projects]]
-  name = "gopkg.in/yaml.v2"
-  packages = ["."]
-  revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
-  version = "v2.2.1"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ff82fd7c995c30fb72638235e791d57a7ebf85ff4b9bf9664daf08b80485c3fd"
+  inputs-digest = "ec33d11980e71107b7ab678a61215d6beec5dd3c147defe9cd33f4007e66b36b"
   solver-name = "gps-cdcl"
   solver-version = 1
