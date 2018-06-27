@@ -2,26 +2,23 @@ package config
 
 import (
 	"fmt"
-	"io/ioutil"
-	"path/filepath"
-	"runtime"
 
-	yaml "gopkg.in/yaml.v2"
+	"github.com/joho/godotenv"
+	"github.com/kelseyhightower/envconfig"
 )
 
 // Load returns Configuration struct
-func Load(env string) (*Configuration, error) {
-	_, filePath, _, _ := runtime.Caller(0)
-	configFile := filePath[:len(filePath)-9]
-	bytes, err := ioutil.ReadFile(configFile +
-		"files" + string(filepath.Separator) + "config." + env + ".yaml")
-	if err != nil {
-		return nil, fmt.Errorf("error reading config file, %s", err)
-	}
+func Load() (*Configuration, error) {
 	var cfg = new(Configuration)
-	if err := yaml.Unmarshal(bytes, cfg); err != nil {
+
+	if err := godotenv.Load(".env"); err != nil {
+		return nil, fmt.Errorf("error loading .env file, %s", err)
+	}
+
+	if err := envconfig.Process("", cfg); err != nil {
 		return nil, fmt.Errorf("unable to decode into struct, %v", err)
 	}
+
 	return cfg, nil
 }
 
@@ -34,26 +31,26 @@ type Configuration struct {
 
 // Database holds data necessery for database configuration
 type Database struct {
-	PSN          string
-	Log          bool
-	CreateSchema bool
-	Timeout      int
+	PSN          string `envconfig:"DSN" required:"true"`
+	Log          bool   `envconfig:"DB_LOG" default:"false"`
+	CreateSchema bool   `envconfig:"DB_CREATE_SCHEMA" default:"false"`
+	Timeout      int    `envconfig:"DB_TIMEOUT" default:"5"`
 }
 
 // Server holds data necessery for server configuration
 type Server struct {
-	Port         string
-	Debug        bool
-	ReadTimeout  int
-	WriteTimeout int
+	Port         string `envconfig:"PORT" default:":3000"`
+	Debug        bool   `envconfig:"DEBUG" default:"false"`
+	ReadTimeout  int    `envconfig:"READ_TIMEOUT" default:"5"`
+	WriteTimeout int    `envconfig:"WRITE_TIMEOUT" default:"5"`
 }
 
 // JWT holds data necessery for JWT configuration
 type JWT struct {
-	Realm            string
-	Secret           string
-	Duration         int
+	Realm            string `envconfig:"JWT_REALM" required:"true"`
+	Secret           string `envconfig:"JWT_SECRET" required:"true"`
+	Duration         int    `envconfig:"JWT_DURATION" required:"true"`
 	RefreshDuration  int
 	MaxRefresh       int
-	SigningAlgorithm string
+	SigningAlgorithm string `envconfig:"JWT_ALGORITHM" default:"HS256"`
 }

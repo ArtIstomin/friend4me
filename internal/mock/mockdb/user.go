@@ -1,7 +1,7 @@
 package mockdb
 
 import (
-	"github.com/ribice/gorsk/internal"
+	"github.com/artistomin/gorsk/internal"
 )
 
 // User database mock

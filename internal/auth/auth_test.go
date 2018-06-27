@@ -4,11 +4,11 @@ import (
 	"testing"
 	"time"
 
+	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/gorsk/internal/auth"
+	"github.com/artistomin/gorsk/internal/mock"
+	"github.com/artistomin/gorsk/internal/mock/mockdb"
 	"github.com/labstack/echo"
-	"github.com/ribice/gorsk/internal"
-	"github.com/ribice/gorsk/internal/auth"
-	"github.com/ribice/gorsk/internal/mock"
-	"github.com/ribice/gorsk/internal/mock/mockdb"
 	"github.com/stretchr/testify/assert"
 )
 

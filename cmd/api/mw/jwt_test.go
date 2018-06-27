@@ -9,12 +9,12 @@ import (
 	"github.com/labstack/echo"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/ribice/gorsk/internal"
+	"github.com/artistomin/gorsk/internal"
 
-	"github.com/ribice/gorsk/cmd/api/config"
-	"github.com/ribice/gorsk/internal/mock"
+	"github.com/artistomin/gorsk/cmd/api/config"
+	"github.com/artistomin/gorsk/internal/mock"
 
-	"github.com/ribice/gorsk/cmd/api/mw"
+	"github.com/artistomin/gorsk/cmd/api/mw"
 )
 
 func hwHandler(c echo.Context) error {

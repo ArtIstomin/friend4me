@@ -1,8 +1,8 @@
 package rbac
 
 import (
+	"github.com/artistomin/gorsk/internal"
 	"github.com/labstack/echo"
-	"github.com/ribice/gorsk/internal"
 )
 
 // New creates new RBAC service

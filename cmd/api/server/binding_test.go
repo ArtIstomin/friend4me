@@ -6,8 +6,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/ribice/gorsk/cmd/api/server"
-	"github.com/ribice/gorsk/internal/mock"
+	"github.com/artistomin/gorsk/cmd/api/server"
+	"github.com/artistomin/gorsk/internal/mock"
 	"github.com/stretchr/testify/assert"
 )
 

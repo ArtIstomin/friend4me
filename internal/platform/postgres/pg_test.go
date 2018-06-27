@@ -5,11 +5,11 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/gorsk/internal/platform/postgres"
 	"github.com/labstack/echo"
-	"github.com/ribice/gorsk/internal"
-	"github.com/ribice/gorsk/internal/platform/postgres"
 
-	"github.com/ribice/gorsk/cmd/api/config"
+	"github.com/artistomin/gorsk/cmd/api/config"
 
 	"github.com/fortytw2/dockertest"
 	"github.com/go-pg/pg"

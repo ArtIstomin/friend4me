@@ -3,8 +3,8 @@ package request
 import (
 	"net/http"
 
+	"github.com/artistomin/gorsk/internal"
 	"github.com/labstack/echo"
-	"github.com/ribice/gorsk/internal"
 )
 
 // Register contains registration request

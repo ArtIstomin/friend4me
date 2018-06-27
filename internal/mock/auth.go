@@ -3,7 +3,7 @@ package mock
 import (
 	"github.com/labstack/echo"
 
-	"github.com/ribice/gorsk/internal"
+	"github.com/artistomin/gorsk/internal"
 )
 
 // Auth mock

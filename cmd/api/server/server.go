@@ -4,13 +4,11 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/facebookgo/grace/gracehttp"
+	"github.com/artistomin/gorsk/cmd/api/config"
+	"github.com/artistomin/gorsk/cmd/api/mw"
 	"github.com/go-playground/validator"
-	"github.com/labstack/echo/middleware"
-	"github.com/ribice/gorsk/cmd/api/config"
-	"github.com/ribice/gorsk/cmd/api/mw"
-
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 // New instantates new Echo server
@@ -36,5 +34,5 @@ func Start(e *echo.Echo, cfg *config.Server) {
 	e.Server.ReadTimeout = time.Duration(cfg.ReadTimeout) * time.Minute
 	e.Server.WriteTimeout = time.Duration(cfg.WriteTimeout) * time.Minute
 	e.Debug = cfg.Debug
-	e.Logger.Fatal(gracehttp.Serve(e.Server))
+	e.Logger.Fatal(e.Start(cfg.Port))
 }
