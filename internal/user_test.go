@@ -3,7 +3,7 @@ package model_test
 import (
 	"testing"
 
-	"github.com/ribice/gorsk/internal"
+	"github.com/artistomin/gorsk/internal"
 )
 
 func TestUpdateLastLogin(t *testing.T) {

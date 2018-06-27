@@ -32,24 +32,23 @@
 package main
 
 import (
-	"github.com/labstack/echo"
-	"github.com/ribice/gorsk/internal/platform/postgres"
-
+	"github.com/artistomin/gorsk/cmd/api/config"
+	"github.com/artistomin/gorsk/cmd/api/mw"
+	"github.com/artistomin/gorsk/cmd/api/server"
+	"github.com/artistomin/gorsk/cmd/api/service"
+	_ "github.com/artistomin/gorsk/cmd/api/swagger"
+	"github.com/artistomin/gorsk/internal/account"
+	"github.com/artistomin/gorsk/internal/auth"
+	"github.com/artistomin/gorsk/internal/platform/postgres"
+	"github.com/artistomin/gorsk/internal/rbac"
+	"github.com/artistomin/gorsk/internal/user"
 	"github.com/go-pg/pg"
-	"github.com/ribice/gorsk/cmd/api/config"
-	"github.com/ribice/gorsk/cmd/api/mw"
-	"github.com/ribice/gorsk/cmd/api/server"
-	"github.com/ribice/gorsk/cmd/api/service"
-	_ "github.com/ribice/gorsk/cmd/api/swagger"
-	"github.com/ribice/gorsk/internal/account"
-	"github.com/ribice/gorsk/internal/auth"
-	"github.com/ribice/gorsk/internal/rbac"
-	"github.com/ribice/gorsk/internal/user"
+	"github.com/labstack/echo"
 )
 
 func main() {
 
-	cfg, err := config.Load("dev")
+	cfg, err := config.Load()
 	checkErr(err)
 
 	e := server.New()

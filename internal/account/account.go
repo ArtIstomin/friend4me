@@ -5,9 +5,9 @@ import (
 
 	"github.com/labstack/echo"
 
-	"github.com/ribice/gorsk/internal"
+	"github.com/artistomin/gorsk/internal"
 
-	"github.com/ribice/gorsk/internal/auth"
+	"github.com/artistomin/gorsk/internal/auth"
 )
 
 // New creates new user application service

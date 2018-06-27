@@ -3,13 +3,13 @@ package pgsql_test
 import (
 	"testing"
 
+	"github.com/artistomin/gorsk/internal/platform/postgres"
 	"github.com/labstack/echo"
-	"github.com/ribice/gorsk/internal/platform/postgres"
 	"github.com/stretchr/testify/assert"
 
+	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/gorsk/internal/mock"
 	"github.com/go-pg/pg"
-	"github.com/ribice/gorsk/internal"
-	"github.com/ribice/gorsk/internal/mock"
 )
 
 func testUserDB(t *testing.T, c *pg.DB, l echo.Logger) {

@@ -7,10 +7,10 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/ribice/gorsk/internal"
-	"github.com/ribice/gorsk/internal/mock"
-	"github.com/ribice/gorsk/internal/mock/mockdb"
-	"github.com/ribice/gorsk/internal/user"
+	"github.com/artistomin/gorsk/internal"
+	"github.com/artistomin/gorsk/internal/mock"
+	"github.com/artistomin/gorsk/internal/mock/mockdb"
+	"github.com/artistomin/gorsk/internal/user"
 )
 
 func TestView(t *testing.T) {
