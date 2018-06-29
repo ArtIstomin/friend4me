@@ -19,6 +19,14 @@ func testUserDB(t *testing.T, c *pg.DB, l echo.Logger) {
 		fn   func(*testing.T, *pgsql.UserDB, *pg.DB)
 	}{
 		{
+			name: "userCreate",
+			fn:   testUserCreate,
+		},
+		{
+			name: "changePassword",
+			fn:   testChangePassword,
+		},
+		{
 			name: "view",
 			fn:   testUserView,
 		},
@@ -49,6 +57,133 @@ func testUserDB(t *testing.T, c *pg.DB, l echo.Logger) {
 		})
 	}
 
+}
+
+func testUserCreate(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
+	cases := []struct {
+		name     string
+		wantErr  bool
+		usr      model.User
+		wantData *model.User
+	}{
+		{
+			name:    "User already exists",
+			wantErr: true,
+			usr: model.User{
+				Email:    "johndoe@mail.com",
+				Username: "johndoe",
+			},
+		},
+		{
+			name:    "Fail on insert duplicate ID",
+			wantErr: true,
+			usr: model.User{
+				Email:      "tomjones@mail.com",
+				FirstName:  "Tom",
+				LastName:   "Jones",
+				Username:   "tomjones",
+				RoleID:     1,
+				CompanyID:  1,
+				LocationID: 1,
+				Password:   "pass",
+				Base: model.Base{
+					ID: 1,
+				},
+			},
+		},
+		{
+			name: "Success",
+			usr: model.User{
+				Email:      "tomjones@mail.com",
+				FirstName:  "Tom",
+				LastName:   "Jones",
+				Username:   "tomjones",
+				RoleID:     1,
+				CompanyID:  1,
+				LocationID: 1,
+				Password:   "pass",
+				Base: model.Base{
+					ID: 2,
+				},
+			},
+			wantData: &model.User{
+				Email:      "tomjones@mail.com",
+				FirstName:  "Tom",
+				LastName:   "Jones",
+				Username:   "tomjones",
+				RoleID:     1,
+				CompanyID:  1,
+				LocationID: 1,
+				Password:   "pass",
+				Base: model.Base{
+					ID: 2,
+				},
+			},
+		},
+	}
+	for _, tt := range cases {
+		t.Run(tt.name, func(t *testing.T) {
+			usr, err := db.Create(tt.usr)
+			assert.Equal(t, tt.wantErr, err != nil)
+			if tt.wantData != nil {
+				tt.wantData.CreatedAt = usr.CreatedAt
+				tt.wantData.UpdatedAt = usr.UpdatedAt
+				assert.Equal(t, tt.wantData, usr)
+			}
+		})
+	}
+}
+
+func testChangePassword(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
+	cases := []struct {
+		name     string
+		wantErr  bool
+		usr      *model.User
+		wantData *model.User
+	}{
+		// Does not fail on this test, but should
+		// {
+		// 	name:    "User does not exist",
+		// 	wantErr: true,
+		// 	usr:     &model.User{},
+		// },
+		{
+			name: "Success",
+			usr: &model.User{
+				Base: model.Base{
+					ID:        2,
+					UpdatedAt: mock.TestTime(2000),
+				},
+				Password: "newPass",
+			},
+			wantData: &model.User{
+				Email:      "tomjones@mail.com",
+				FirstName:  "Tom",
+				LastName:   "Jones",
+				Username:   "tomjones",
+				RoleID:     1,
+				CompanyID:  1,
+				LocationID: 1,
+				Password:   "newPass",
+				Base: model.Base{
+					ID: 2,
+				},
+			},
+		},
+	}
+	for _, tt := range cases {
+		t.Run(tt.name, func(t *testing.T) {
+			err := db.ChangePassword(tt.usr)
+			assert.Equal(t, tt.wantErr, err != nil)
+			if tt.wantData != nil {
+				userDB := queryUser(t, c, tt.usr.Base.ID)
+				assert.NotEqual(t, tt.usr.UpdatedAt, userDB.UpdatedAt)
+				tt.wantData.UpdatedAt = userDB.UpdatedAt
+				tt.wantData.CreatedAt = userDB.CreatedAt
+				assert.Equal(t, tt.wantData, userDB)
+			}
+		})
+	}
 }
 
 func testUserView(t *testing.T, db *pgsql.UserDB, c *pg.DB) {

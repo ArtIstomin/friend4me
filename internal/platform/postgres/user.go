@@ -1,6 +1,8 @@
 package pgsql
 
 import (
+	"net/http"
+
 	"github.com/artistomin/friend4me/internal"
 	"github.com/labstack/echo"
 
@@ -16,6 +18,33 @@ func NewUserDB(c *pg.DB, l echo.Logger) *UserDB {
 type UserDB struct {
 	cl  *pg.DB
 	log echo.Logger
+}
+
+// Create creates a new user on database
+func (u *UserDB) Create(usr model.User) (*model.User, error) {
+	var user = new(model.User)
+	res, err := u.cl.Query(user, "select id from users where username = ? or email = ? and deleted_at is null", usr.Username, usr.Email)
+	if err != nil {
+		u.log.Error("AccountDB Error: %v", err)
+		return nil, err
+	}
+	if res.RowsReturned() != 0 {
+		return nil, echo.NewHTTPError(http.StatusInternalServerError, "Username or email already exists.")
+	}
+	if err := u.cl.Insert(&usr); err != nil {
+		u.log.Error("AccountDB Error: %v", err)
+		return nil, err
+	}
+	return &usr, nil
+}
+
+// ChangePassword changes user's password
+func (u *UserDB) ChangePassword(usr *model.User) error {
+	_, err := u.cl.Model(usr).Column("password", "updated_at").WherePK().Update()
+	if err != nil {
+		u.log.Warnf("AccountDB Error: %v", err)
+	}
+	return err
 }
 
 // View returns single user by ID

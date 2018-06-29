@@ -164,7 +164,7 @@ func TestEnforceLocation(t *testing.T) {
 	}
 }
 
-func TestAccountCreate(t *testing.T) {
+func TestUserCreate(t *testing.T) {
 	type args struct {
 		ctx         echo.Context
 		roleID      int
@@ -210,7 +210,7 @@ func TestAccountCreate(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			rbacSvc := rbac.New(nil)
-			res := rbacSvc.AccountCreate(tt.args.ctx, tt.args.roleID, tt.args.company_id, tt.args.location_id)
+			res := rbacSvc.UserCreate(tt.args.ctx, tt.args.roleID, tt.args.company_id, tt.args.location_id)
 			assert.Equal(t, tt.wantErr, res == echo.ErrForbidden)
 		})
 	}
