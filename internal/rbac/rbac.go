@@ -71,9 +71,9 @@ func (s *Service) isCompanyAdmin(c echo.Context) bool {
 	return !(c.Get("role").(int8) > int8(model.CompanyAdminRole))
 }
 
-// AccountCreate performs auth check when creating a new account
+// UserCreate performs auth check when creating a new account
 // Location admin cannot create accounts, needs to be fixed on EnforceLocation function
-func (s *Service) AccountCreate(c echo.Context, roleID, companyID, locationID int) error {
+func (s *Service) UserCreate(c echo.Context, roleID, companyID, locationID int) error {
 	if err := s.EnforceLocation(c, locationID); err != nil {
 		return err
 	}

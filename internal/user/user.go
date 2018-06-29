@@ -2,9 +2,12 @@
 package user
 
 import (
+	"net/http"
+
 	"github.com/artistomin/friend4me/internal"
 	"github.com/labstack/echo"
 
+	"github.com/artistomin/friend4me/internal/auth"
 	"github.com/artistomin/friend4me/internal/platform/query"
 	"github.com/artistomin/friend4me/internal/platform/structs"
 )
@@ -19,6 +22,31 @@ type Service struct {
 	udb  model.UserDB
 	rbac model.RBACService
 	auth model.AuthService
+}
+
+// Create creates a new user account
+func (s *Service) Create(c echo.Context, req model.User) (*model.User, error) {
+	if err := s.rbac.UserCreate(c, req.RoleID, req.CompanyID, req.LocationID); err != nil {
+		return nil, err
+	}
+	req.Password = auth.HashPassword(req.Password)
+	return s.udb.Create(req)
+}
+
+// ChangePassword changes user's password
+func (s *Service) ChangePassword(c echo.Context, oldPass, newPass string, id int) error {
+	if err := s.rbac.EnforceUser(c, id); err != nil {
+		return err
+	}
+	u, err := s.udb.View(id)
+	if err != nil {
+		return err
+	}
+	if !auth.HashMatchesPassword(u.Password, oldPass) {
+		return echo.NewHTTPError(http.StatusBadRequest, "old password is not correct")
+	}
+	u.Password = auth.HashPassword(newPass)
+	return s.udb.ChangePassword(u)
 }
 
 // List returns list of users

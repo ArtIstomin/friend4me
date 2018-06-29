@@ -59,10 +59,6 @@ func TestNew(t *testing.T) {
 		fn   func(t *testing.T, db *pg.DB, log echo.Logger)
 	}{
 		{
-			name: "AccountDB",
-			fn:   testAccountDB,
-		},
-		{
 			name: "UserDB",
 			fn:   testUserDB,
 		},

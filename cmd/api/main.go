@@ -31,7 +31,6 @@ import (
 	"github.com/artistomin/friend4me/cmd/api/server"
 	"github.com/artistomin/friend4me/cmd/api/service"
 	_ "github.com/artistomin/friend4me/cmd/api/swagger"
-	"github.com/artistomin/friend4me/internal/account"
 	"github.com/artistomin/friend4me/internal/auth"
 	"github.com/artistomin/friend4me/internal/platform/postgres"
 	"github.com/artistomin/friend4me/internal/rbac"
@@ -60,7 +59,6 @@ func addV1Services(cfg *config.Configuration, e *echo.Echo, db *pg.DB) {
 	// Initalize DB interfaces
 
 	userDB := pgsql.NewUserDB(db, e.Logger)
-	accDB := pgsql.NewAccountDB(db, e.Logger)
 
 	// Initalize services
 
@@ -79,7 +77,6 @@ func addV1Services(cfg *config.Configuration, e *echo.Echo, db *pg.DB) {
 	// Workaround for Echo's issue with routing.
 	// v1Router should be passed to service normally, and then the group name created there
 	uR := v1Router.Group("/users")
-	service.NewAccount(account.New(accDB, userDB, rbacSvc), uR)
 	service.NewUser(user.New(userDB, rbacSvc, authSvc), uR)
 }
 

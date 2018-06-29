@@ -121,6 +121,37 @@ func NewUser(svc *user.Service, ur *echo.Group) {
 	//   "500":
 	//     "$ref": "#/responses/err"
 	ur.DELETE("/:id", u.delete)
+	// swagger:route POST /v1/users users userCreate
+	// Creates new user.
+	// responses:
+	//  200: userResp
+	//  400: errMsg
+	//  401: err
+	//  403: errMsg
+	//  500: err
+	ur.POST("", u.create)
+	// swagger:operation PATCH /v1/users/{id}/password users pwChange
+	// ---
+	// summary: Changes user's password.
+	// description: If user's old passowrd is correct, it will be replaced with new password.
+	// parameters:
+	// - name: id
+	//   in: path
+	//   description: id of user
+	//   type: int
+	//   required: true
+	// responses:
+	//   "200":
+	//     "$ref": "#/responses/ok"
+	//   "400":
+	//     "$ref": "#/responses/errMsg"
+	//   "401":
+	//     "$ref": "#/responses/err"
+	//   "403":
+	//     "$ref": "#/responses/err"
+	//   "500":
+	//     "$ref": "#/responses/err"
+	ur.PATCH("/:id/password", u.changePassword)
 }
 
 type listResponse struct {
@@ -179,6 +210,42 @@ func (u *User) delete(c echo.Context) error {
 		return err
 	}
 	if err := u.svc.Delete(c, id); err != nil {
+		return err
+	}
+	return c.NoContent(http.StatusOK)
+}
+
+func (u *User) create(c echo.Context) error {
+	r, err := request.UserCreate(c)
+
+	if err != nil {
+		return err
+	}
+
+	usr, err := u.svc.Create(c, model.User{
+		Username:   r.Username,
+		Password:   r.Password,
+		Email:      r.Email,
+		FirstName:  r.FirstName,
+		LastName:   r.LastName,
+		CompanyID:  r.CompanyID,
+		LocationID: r.LocationID,
+		RoleID:     r.RoleID,
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(http.StatusOK, usr)
+}
+
+func (u *User) changePassword(c echo.Context) error {
+	p, err := request.PasswordChange(c)
+	if err != nil {
+		return err
+	}
+	if err := u.svc.ChangePassword(c, p.OldPassword, p.NewPassword, p.ID); err != nil {
 		return err
 	}
 	return c.NoContent(http.StatusOK)
