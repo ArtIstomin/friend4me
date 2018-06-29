@@ -3,8 +3,9 @@ package structs_test
 import (
 	"testing"
 
-	"github.com/artistomin/friend4me/internal/platform/structs"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/artistomin/friend4me/internal/platform/structs"
 )
 
 type carID int64

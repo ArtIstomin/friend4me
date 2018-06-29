@@ -5,9 +5,10 @@ import (
 	"net/http/httptest"
 	"time"
 
-	"github.com/artistomin/friend4me/cmd/api/server"
 	"github.com/go-playground/validator"
 	"github.com/labstack/echo"
+
+	"github.com/artistomin/friend4me/cmd/api/server"
 )
 
 // TestTime is used for testing time fields

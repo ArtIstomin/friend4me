@@ -1,9 +1,8 @@
 package swagger
 
 import (
-	"github.com/artistomin/friend4me/internal"
-
 	"github.com/artistomin/friend4me/cmd/api/request"
+	"github.com/artistomin/friend4me/internal"
 )
 
 // Account create request

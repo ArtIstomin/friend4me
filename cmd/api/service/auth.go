@@ -3,9 +3,9 @@ package service
 import (
 	"net/http"
 
-	"github.com/artistomin/friend4me/cmd/api/request"
 	"github.com/labstack/echo"
 
+	"github.com/artistomin/friend4me/cmd/api/request"
 	"github.com/artistomin/friend4me/internal/auth"
 )
 

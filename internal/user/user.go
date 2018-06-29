@@ -4,9 +4,9 @@ package user
 import (
 	"net/http"
 
-	"github.com/artistomin/friend4me/internal"
 	"github.com/labstack/echo"
 
+	"github.com/artistomin/friend4me/internal"
 	"github.com/artistomin/friend4me/internal/auth"
 	"github.com/artistomin/friend4me/internal/platform/query"
 	"github.com/artistomin/friend4me/internal/platform/structs"

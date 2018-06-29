@@ -4,12 +4,13 @@ import (
 	"testing"
 	"time"
 
+	"github.com/labstack/echo"
+	"github.com/stretchr/testify/assert"
+
 	"github.com/artistomin/friend4me/internal"
 	"github.com/artistomin/friend4me/internal/auth"
 	"github.com/artistomin/friend4me/internal/mock"
 	"github.com/artistomin/friend4me/internal/mock/mockdb"
-	"github.com/labstack/echo"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestAuthenticate(t *testing.T) {

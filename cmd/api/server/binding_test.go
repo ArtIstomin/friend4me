@@ -6,9 +6,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/artistomin/friend4me/cmd/api/server"
 	"github.com/artistomin/friend4me/internal/mock"
-	"github.com/stretchr/testify/assert"
 )
 
 type Req struct {

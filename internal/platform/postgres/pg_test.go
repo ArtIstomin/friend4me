@@ -5,14 +5,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/artistomin/friend4me/internal"
-	"github.com/artistomin/friend4me/internal/platform/postgres"
+	"github.com/fortytw2/dockertest"
+	"github.com/go-pg/pg"
 	"github.com/labstack/echo"
 
 	"github.com/artistomin/friend4me/cmd/api/config"
-
-	"github.com/fortytw2/dockertest"
-	"github.com/go-pg/pg"
+	"github.com/artistomin/friend4me/internal"
+	"github.com/artistomin/friend4me/internal/platform/postgres"
 )
 
 func TestNew(t *testing.T) {

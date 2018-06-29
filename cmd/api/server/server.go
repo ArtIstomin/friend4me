@@ -4,11 +4,12 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/artistomin/friend4me/cmd/api/config"
-	"github.com/artistomin/friend4me/cmd/api/mw"
 	"github.com/go-playground/validator"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+
+	"github.com/artistomin/friend4me/cmd/api/config"
+	"github.com/artistomin/friend4me/cmd/api/mw"
 )
 
 // New instantates new Echo server

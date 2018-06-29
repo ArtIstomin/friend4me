@@ -3,10 +3,10 @@ package pgsql
 import (
 	"net/http"
 
-	"github.com/artistomin/friend4me/internal"
+	"github.com/go-pg/pg"
 	"github.com/labstack/echo"
 
-	"github.com/go-pg/pg"
+	"github.com/artistomin/friend4me/internal"
 )
 
 // NewUserDB returns a new UserDB instance

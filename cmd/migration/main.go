@@ -5,12 +5,11 @@ import (
 	"log"
 	"strings"
 
+	"github.com/go-pg/pg"
 	"github.com/go-pg/pg/orm"
 
 	"github.com/artistomin/friend4me/internal"
-
 	"github.com/artistomin/friend4me/internal/auth"
-	"github.com/go-pg/pg"
 )
 
 func main() {

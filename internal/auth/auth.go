@@ -4,12 +4,10 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
-
 	"github.com/rs/xid"
+	"golang.org/x/crypto/bcrypt"
 
 	"github.com/artistomin/friend4me/internal"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
 // New creates new auth service

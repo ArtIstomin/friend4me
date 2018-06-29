@@ -1,8 +1,9 @@
 package rbac
 
 import (
-	"github.com/artistomin/friend4me/internal"
 	"github.com/labstack/echo"
+
+	"github.com/artistomin/friend4me/internal"
 )
 
 // New creates new RBAC service

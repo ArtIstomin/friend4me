@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/artistomin/friend4me/internal"
-
 	"github.com/artistomin/friend4me/internal/mock"
 )
 

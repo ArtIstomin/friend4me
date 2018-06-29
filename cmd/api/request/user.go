@@ -3,8 +3,9 @@ package request
 import (
 	"net/http"
 
-	"github.com/artistomin/friend4me/internal"
 	"github.com/labstack/echo"
+
+	"github.com/artistomin/friend4me/internal"
 )
 
 // Register contains registration request

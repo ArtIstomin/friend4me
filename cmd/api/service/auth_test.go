@@ -8,13 +8,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/artistomin/friend4me/internal"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/artistomin/friend4me/cmd/api/config"
 	"github.com/artistomin/friend4me/cmd/api/mw"
 	"github.com/artistomin/friend4me/cmd/api/server"
 	"github.com/artistomin/friend4me/cmd/api/service"
+	"github.com/artistomin/friend4me/internal"
 	"github.com/artistomin/friend4me/internal/auth"
 	"github.com/artistomin/friend4me/internal/mock"
 	"github.com/artistomin/friend4me/internal/mock/mockdb"

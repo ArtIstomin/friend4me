@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/labstack/echo"
-
 	"github.com/stretchr/testify/assert"
 
 	"github.com/artistomin/friend4me/internal"

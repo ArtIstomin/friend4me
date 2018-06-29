@@ -4,11 +4,10 @@ import (
 	"testing"
 
 	"github.com/labstack/echo"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/artistomin/friend4me/internal"
-
 	"github.com/artistomin/friend4me/internal/platform/query"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestList(t *testing.T) {

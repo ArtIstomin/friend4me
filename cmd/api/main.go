@@ -26,6 +26,9 @@
 package main
 
 import (
+	"github.com/go-pg/pg"
+	"github.com/labstack/echo"
+
 	"github.com/artistomin/friend4me/cmd/api/config"
 	"github.com/artistomin/friend4me/cmd/api/mw"
 	"github.com/artistomin/friend4me/cmd/api/server"
@@ -35,8 +38,6 @@ import (
 	"github.com/artistomin/friend4me/internal/platform/postgres"
 	"github.com/artistomin/friend4me/internal/rbac"
 	"github.com/artistomin/friend4me/internal/user"
-	"github.com/go-pg/pg"
-	"github.com/labstack/echo"
 )
 
 func main() {

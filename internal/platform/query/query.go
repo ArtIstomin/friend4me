@@ -1,8 +1,9 @@
 package query
 
 import (
-	"github.com/artistomin/friend4me/internal"
 	"github.com/labstack/echo"
+
+	"github.com/artistomin/friend4me/internal"
 )
 
 // List prepares data for list queries

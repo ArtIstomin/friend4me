@@ -5,12 +5,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/artistomin/friend4me/internal"
+	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 
 	"github.com/artistomin/friend4me/cmd/api/config"
-
-	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/artistomin/friend4me/internal"
 )
 
 // NewJWT generates new JWT variable necessery for auth middleware

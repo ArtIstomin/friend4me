@@ -5,10 +5,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/artistomin/friend4me/cmd/api/request"
-	"github.com/artistomin/friend4me/internal/mock"
 	"github.com/labstack/echo"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/artistomin/friend4me/cmd/api/request"
+	"github.com/artistomin/friend4me/internal/mock"
 )
 
 func TestPaginate(t *testing.T) {
