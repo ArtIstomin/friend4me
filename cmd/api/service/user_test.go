@@ -44,11 +44,10 @@ func TestListUsers(t *testing.T) {
 			auth: &mock.Auth{
 				UserFn: func(c echo.Context) *model.AuthUser {
 					return &model.AuthUser{
-						ID:         1,
-						CompanyID:  2,
-						LocationID: 3,
-						Role:       model.UserRole,
-						Email:      "john@mail.com",
+						ID:        1,
+						CompanyID: 2,
+						Role:      model.UserRole,
+						Email:     "john@mail.com",
 					}
 				}},
 			wantStatus: http.StatusForbidden,
@@ -59,11 +58,10 @@ func TestListUsers(t *testing.T) {
 			auth: &mock.Auth{
 				UserFn: func(c echo.Context) *model.AuthUser {
 					return &model.AuthUser{
-						ID:         1,
-						CompanyID:  2,
-						LocationID: 3,
-						Role:       model.SuperAdminRole,
-						Email:      "john@mail.com",
+						ID:        1,
+						CompanyID: 2,
+						Role:      model.SuperAdminRole,
+						Email:     "john@mail.com",
 					}
 				}},
 			udb: &mockdb.User{
@@ -76,11 +74,10 @@ func TestListUsers(t *testing.T) {
 									CreatedAt: mock.TestTime(2001),
 									UpdatedAt: mock.TestTime(2002),
 								},
-								FirstName:  "John",
-								LastName:   "Doe",
-								Email:      "john@mail.com",
-								CompanyID:  2,
-								LocationID: 3,
+								FirstName: "John",
+								LastName:  "Doe",
+								Email:     "john@mail.com",
+								CompanyID: 2,
 								Role: &model.Role{
 									ID:          1,
 									AccessLevel: 1,
@@ -93,11 +90,10 @@ func TestListUsers(t *testing.T) {
 									CreatedAt: mock.TestTime(2004),
 									UpdatedAt: mock.TestTime(2005),
 								},
-								FirstName:  "Joanna",
-								LastName:   "Dye",
-								Email:      "joanna@mail.com",
-								CompanyID:  1,
-								LocationID: 2,
+								FirstName: "Joanna",
+								LastName:  "Dye",
+								Email:     "joanna@mail.com",
+								CompanyID: 1,
 								Role: &model.Role{
 									ID:          2,
 									AccessLevel: 2,
@@ -118,11 +114,10 @@ func TestListUsers(t *testing.T) {
 							CreatedAt: mock.TestTime(2001),
 							UpdatedAt: mock.TestTime(2002),
 						},
-						FirstName:  "John",
-						LastName:   "Doe",
-						Email:      "john@mail.com",
-						CompanyID:  2,
-						LocationID: 3,
+						FirstName: "John",
+						LastName:  "Doe",
+						Email:     "john@mail.com",
+						CompanyID: 2,
 						Role: &model.Role{
 							ID:          1,
 							AccessLevel: 1,
@@ -135,11 +130,10 @@ func TestListUsers(t *testing.T) {
 							CreatedAt: mock.TestTime(2004),
 							UpdatedAt: mock.TestTime(2005),
 						},
-						FirstName:  "Joanna",
-						LastName:   "Dye",
-						Email:      "joanna@mail.com",
-						CompanyID:  1,
-						LocationID: 2,
+						FirstName: "Joanna",
+						LastName:  "Dye",
+						Email:     "joanna@mail.com",
+						CompanyID: 1,
 						Role: &model.Role{
 							ID:          2,
 							AccessLevel: 2,
@@ -453,14 +447,14 @@ func TestCreate(t *testing.T) {
 	}{
 		{
 			name:       "Invalid request",
-			req:        `{"first_name":"John","last_name":"Doe","username":"juzernejm","password":"hunter123","password_confirm":"hunter1234","email":"johndoe@gmail.com","company_id":1,"location_id":2,"role_id":3}`,
+			req:        `{"first_name":"John","last_name":"Doe","username":"juzernejm","password":"hunter123","password_confirm":"hunter1234","email":"johndoe@gmail.com","company_id":1,"role_id":3}`,
 			wantStatus: http.StatusBadRequest,
 		},
 		{
 			name: "Fail on userSvc",
-			req:  `{"first_name":"John","last_name":"Doe","username":"juzernejm","password":"hunter123","password_confirm":"hunter123","email":"johndoe@gmail.com","company_id":1,"location_id":2,"role_id":2}`,
+			req:  `{"first_name":"John","last_name":"Doe","username":"juzernejm","password":"hunter123","password_confirm":"hunter123","email":"johndoe@gmail.com","company_id":1,"role_id":2}`,
 			rbac: &mock.RBAC{
-				UserCreateFn: func(c echo.Context, roleID, companyID, locationID int) error {
+				UserCreateFn: func(c echo.Context, roleID, companyID int) error {
 					return echo.ErrForbidden
 				},
 			},
@@ -468,9 +462,9 @@ func TestCreate(t *testing.T) {
 		},
 		{
 			name: "Success",
-			req:  `{"first_name":"John","last_name":"Doe","username":"juzernejm","password":"hunter123","password_confirm":"hunter123","email":"johndoe@gmail.com","company_id":1,"location_id":2,"role_id":2}`,
+			req:  `{"first_name":"John","last_name":"Doe","username":"juzernejm","password":"hunter123","password_confirm":"hunter123","email":"johndoe@gmail.com","company_id":1,"role_id":2}`,
 			rbac: &mock.RBAC{
-				UserCreateFn: func(c echo.Context, roleID, companyID, locationID int) error {
+				UserCreateFn: func(c echo.Context, roleID, companyID int) error {
 					return nil
 				},
 			},
@@ -488,12 +482,11 @@ func TestCreate(t *testing.T) {
 					CreatedAt: mock.TestTime(2018),
 					UpdatedAt: mock.TestTime(2018),
 				},
-				FirstName:  "John",
-				LastName:   "Doe",
-				Username:   "juzernejm",
-				Email:      "johndoe@gmail.com",
-				CompanyID:  1,
-				LocationID: 2,
+				FirstName: "John",
+				LastName:  "Doe",
+				Username:  "juzernejm",
+				Email:     "johndoe@gmail.com",
+				CompanyID: 1,
 			},
 			wantStatus: http.StatusOK,
 		},

@@ -5,9 +5,9 @@ import (
 	"github.com/artistomin/friend4me/internal"
 )
 
-// Account create request
+// User create request
 // swagger:parameters accCreate
-type swaggAccCreateReq struct {
+type swaggUserCreateReq struct {
 	// in:body
 	Body request.Register
 }

@@ -25,14 +25,14 @@ func (u *UserDB) Create(usr model.User) (*model.User, error) {
 	var user = new(model.User)
 	res, err := u.cl.Query(user, "select id from users where username = ? or email = ? and deleted_at is null", usr.Username, usr.Email)
 	if err != nil {
-		u.log.Error("AccountDB Error: %v", err)
+		u.log.Error("UserDB Error: %v", err)
 		return nil, err
 	}
 	if res.RowsReturned() != 0 {
 		return nil, echo.NewHTTPError(http.StatusInternalServerError, "Username or email already exists.")
 	}
 	if err := u.cl.Insert(&usr); err != nil {
-		u.log.Error("AccountDB Error: %v", err)
+		u.log.Error("UserDB Error: %v", err)
 		return nil, err
 	}
 	return &usr, nil
@@ -42,7 +42,7 @@ func (u *UserDB) Create(usr model.User) (*model.User, error) {
 func (u *UserDB) ChangePassword(usr *model.User) error {
 	_, err := u.cl.Model(usr).Column("password", "updated_at").WherePK().Update()
 	if err != nil {
-		u.log.Warnf("AccountDB Error: %v", err)
+		u.log.Warnf("UserDB Error: %v", err)
 	}
 	return err
 }
@@ -55,7 +55,7 @@ func (u *UserDB) View(id int) (*model.User, error) {
 	WHERE ("user"."id" = ? and deleted_at is null)`
 	_, err := u.cl.QueryOne(user, sql, id)
 	if err != nil {
-		u.log.Warnf("AccountDB Error: %v", err)
+		u.log.Warnf("UserDB Error: %v", err)
 	}
 	return user, err
 }
@@ -112,7 +112,7 @@ func (u *UserDB) Delete(user *model.User) error {
 
 // Update updates user's contact info
 func (u *UserDB) Update(user *model.User) (*model.User, error) {
-	_, err := u.cl.Model(user).WherePK().Update()
+	_, err := u.cl.Model(user).WherePK().UpdateNotNull()
 	if err != nil {
 		u.log.Warnf("UserDB Error: %v", err)
 	}

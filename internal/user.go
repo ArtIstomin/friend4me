@@ -21,19 +21,17 @@ type User struct {
 
 	Role *Role `json:"role,omitempty"`
 
-	RoleID     int `json:"-"`
-	CompanyID  int `json:"company_id"`
-	LocationID int `json:"location_id"`
+	RoleID    int `json:"-"`
+	CompanyID int `json:"company_id"`
 }
 
 // AuthUser represents data stored in JWT token for user
 type AuthUser struct {
-	ID         int
-	CompanyID  int
-	LocationID int
-	Username   string
-	Email      string
-	Role       AccessRole
+	ID        int
+	CompanyID int
+	Username  string
+	Email     string
+	Role      AccessRole
 }
 
 // UpdateLastLogin updates last login field

@@ -37,17 +37,6 @@ func TestList(t *testing.T) {
 				ID:    1},
 		},
 		{
-			name: "Location admin user",
-			args: args{user: &model.AuthUser{
-				Role:       model.LocationAdminRole,
-				CompanyID:  1,
-				LocationID: 2,
-			}},
-			wantData: &model.ListQuery{
-				Query: "location_id = ?",
-				ID:    2},
-		},
-		{
 			name: "Normal user",
 			args: args{user: &model.AuthUser{
 				Role: model.UserRole,

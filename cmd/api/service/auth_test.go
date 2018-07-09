@@ -184,11 +184,10 @@ func TestMe(t *testing.T) {
 						Base: model.Base{
 							ID: i,
 						},
-						CompanyID:  2,
-						LocationID: 3,
-						Email:      "john@mail.com",
-						FirstName:  "John",
-						LastName:   "Doe",
+						CompanyID: 2,
+						Email:     "john@mail.com",
+						FirstName: "John",
+						LastName:  "Doe",
 					}, nil
 				},
 			},
@@ -197,11 +196,10 @@ func TestMe(t *testing.T) {
 				Base: model.Base{
 					ID: 1,
 				},
-				CompanyID:  2,
-				LocationID: 3,
-				Email:      "john@mail.com",
-				FirstName:  "John",
-				LastName:   "Doe",
+				CompanyID: 2,
+				Email:     "john@mail.com",
+				FirstName: "John",
+				LastName:  "Doe",
 			},
 		},
 	}

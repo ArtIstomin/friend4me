@@ -221,15 +221,14 @@ func TestRefresh(t *testing.T) {
 }
 func TestUser(t *testing.T) {
 	ctx := mock.EchoCtxWithKeys([]string{
-		"id", "company_id", "location_id", "username", "email", "role"},
-		9, 15, 52, "ribice", "ribice@gmail.com", int8(1))
+		"id", "company_id", "username", "email", "role"},
+		9, 15, "ribice", "ribice@gmail.com", int8(1))
 	wantUser := &model.AuthUser{
-		ID:         9,
-		Username:   "ribice",
-		CompanyID:  15,
-		LocationID: 52,
-		Email:      "ribice@gmail.com",
-		Role:       model.SuperAdminRole,
+		ID:        9,
+		Username:  "ribice",
+		CompanyID: 15,
+		Email:     "ribice@gmail.com",
+		Role:      model.SuperAdminRole,
 	}
 	rbacSvc := auth.New(nil, nil)
 	assert.Equal(t, wantUser, rbacSvc.User(ctx))
@@ -261,8 +260,8 @@ func TestMe(t *testing.T) {
 		{
 			name: "Success",
 			ctx: mock.EchoCtxWithKeys([]string{
-				"id", "company_id", "location_id", "username", "email", "role"},
-				9, 15, 52, "ribice", "ribice@gmail.com", int8(1)),
+				"id", "company_id", "username", "email", "role",
+			}, 9, 15, "ribice", "ribice@gmail.com", int8(1)),
 			udb: &mockdb.User{
 				ViewFn: func(id int) (*model.User, error) {
 					return &model.User{

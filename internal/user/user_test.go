@@ -27,7 +27,7 @@ func TestCreate(t *testing.T) {
 	}{{
 		name: "Fail on is lower role",
 		rbac: &mock.RBAC{
-			UserCreateFn: func(echo.Context, int, int, int) error {
+			UserCreateFn: func(echo.Context, int, int) error {
 				return model.ErrGeneric
 			}},
 		wantErr: true,
@@ -57,7 +57,7 @@ func TestCreate(t *testing.T) {
 				},
 			},
 			rbac: &mock.RBAC{
-				UserCreateFn: func(echo.Context, int, int, int) error {
+				UserCreateFn: func(echo.Context, int, int) error {
 					return nil
 				}},
 			wantData: &model.User{
@@ -259,10 +259,9 @@ func TestList(t *testing.T) {
 			auth: &mock.Auth{
 				UserFn: func(c echo.Context) *model.AuthUser {
 					return &model.AuthUser{
-						ID:         1,
-						CompanyID:  2,
-						LocationID: 3,
-						Role:       model.UserRole,
+						ID:        1,
+						CompanyID: 2,
+						Role:      model.UserRole,
 					}
 				}}},
 		{
@@ -274,10 +273,9 @@ func TestList(t *testing.T) {
 			auth: &mock.Auth{
 				UserFn: func(c echo.Context) *model.AuthUser {
 					return &model.AuthUser{
-						ID:         1,
-						CompanyID:  2,
-						LocationID: 3,
-						Role:       model.AdminRole,
+						ID:        1,
+						CompanyID: 2,
+						Role:      model.AdminRole,
 					}
 				}},
 			udb: &mockdb.User{
@@ -496,15 +494,14 @@ func TestUpdate(t *testing.T) {
 					CreatedAt: mock.TestTime(1990),
 					UpdatedAt: mock.TestTime(2000),
 				},
-				CompanyID:  1,
-				LocationID: 2,
-				RoleID:     3,
-				FirstName:  "John",
-				LastName:   "Doe",
-				Mobile:     "123456",
-				Phone:      "234567",
-				Address:    "Work Address",
-				Email:      "golang@go.org",
+				CompanyID: 1,
+				RoleID:    3,
+				FirstName: "John",
+				LastName:  "Doe",
+				Mobile:    "123456",
+				Phone:     "234567",
+				Address:   "Work Address",
+				Email:     "golang@go.org",
 			},
 			udb: &mockdb.User{
 				ViewFn: func(id int) (*model.User, error) {
@@ -515,15 +512,14 @@ func TestUpdate(t *testing.T) {
 								CreatedAt: mock.TestTime(1990),
 								UpdatedAt: mock.TestTime(1991),
 							},
-							CompanyID:  1,
-							LocationID: 2,
-							RoleID:     3,
-							FirstName:  "Joanna",
-							LastName:   "Doep",
-							Mobile:     "334455",
-							Phone:      "444555",
-							Address:    "Work Address",
-							Email:      "golang@go.org",
+							CompanyID: 1,
+							RoleID:    3,
+							FirstName: "Joanna",
+							LastName:  "Doep",
+							Mobile:    "334455",
+							Phone:     "444555",
+							Address:   "Work Address",
+							Email:     "golang@go.org",
 						}, nil
 					}
 					return nil, model.ErrGeneric

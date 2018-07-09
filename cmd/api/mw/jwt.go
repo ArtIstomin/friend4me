@@ -51,14 +51,12 @@ func (j *JWT) MWFunc() echo.MiddlewareFunc {
 
 			id := int(claims["id"].(float64))
 			companyID := int(claims["c"].(float64))
-			locationID := int(claims["l"].(float64))
 			username := claims["u"].(string)
 			email := claims["e"].(string)
 			role := int8(claims["r"].(float64))
 
 			c.Set("id", id)
 			c.Set("company_id", companyID)
-			c.Set("location_id", locationID)
 			c.Set("username", username)
 			c.Set("email", email)
 			c.Set("role", role)
@@ -100,7 +98,6 @@ func (j *JWT) GenerateToken(u *model.User) (string, string, error) {
 	claims["e"] = u.Email
 	claims["r"] = u.Role.AccessLevel
 	claims["c"] = u.CompanyID
-	claims["l"] = u.LocationID
 	claims["exp"] = expire.Unix()
 
 	tokenString, err := token.SignedString(j.Key)

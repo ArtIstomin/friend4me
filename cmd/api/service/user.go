@@ -221,14 +221,13 @@ func (u *User) create(c echo.Context) error {
 	}
 
 	usr, err := u.svc.Create(c, model.User{
-		Username:   r.Username,
-		Password:   r.Password,
-		Email:      r.Email,
-		FirstName:  r.FirstName,
-		LastName:   r.LastName,
-		CompanyID:  r.CompanyID,
-		LocationID: r.LocationID,
-		RoleID:     r.RoleID,
+		Username:  r.Username,
+		Password:  r.Password,
+		Email:     r.Email,
+		FirstName: r.FirstName,
+		LastName:  r.LastName,
+		CompanyID: r.CompanyID,
+		RoleID:    r.RoleID,
 	})
 
 	if err != nil {

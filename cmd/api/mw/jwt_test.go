@@ -91,8 +91,7 @@ func TestGenerateToken(t *testing.T) {
 				Role: &model.Role{
 					AccessLevel: model.SuperAdminRole,
 				},
-				CompanyID:  1,
-				LocationID: 1,
+				CompanyID: 1,
 			},
 			wantToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
 		},

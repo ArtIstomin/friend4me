@@ -17,12 +17,11 @@ type Register struct {
 	PasswordConfirm string `json:"password_confirm" validate:"required"`
 	Email           string `json:"email" validate:"required,email"`
 
-	CompanyID  int `json:"company_id" validate:"required"`
-	LocationID int `json:"location_id" validate:"required"`
-	RoleID     int `json:"role_id" validate:"required"`
+	CompanyID int `json:"company_id" validate:"required"`
+	RoleID    int `json:"role_id" validate:"required"`
 }
 
-// UserCreate validates account creation request
+// UserCreate validates user creation request
 func UserCreate(c echo.Context) (*Register, error) {
 	r := new(Register)
 	if err := c.Bind(r); err != nil {

@@ -33,18 +33,27 @@ func TestNew(t *testing.T) {
 		t.Error("Expected error")
 	}
 
-	_, err = pgsql.New(&config.Database{PSN: "postgres://postgres:postgres@localhost:1234/postgres?sslmode=disable"})
+	_, err = pgsql.New(&config.Database{
+		PSN: "postgres://postgres:postgres@localhost:1234/postgres?sslmode=disable",
+	})
 	if err == nil {
 		t.Error("Expected error")
 	}
 
-	dbLogTest, err := pgsql.New(&config.Database{PSN: "postgres://postgres:postgres@" + container.Addr + "/postgres?sslmode=disable", Log: true})
+	dbLogTest, err := pgsql.New(&config.Database{
+		PSN: "postgres://postgres:postgres@" + container.Addr + "/postgres?sslmode=disable",
+		Log: true,
+	})
 	if err != nil {
 		t.Fatalf("Error establishing connection %v", err)
 	}
 	dbLogTest.Close()
 
-	dbCfg := &config.Database{PSN: "postgres://postgres:postgres@" + container.Addr + "/postgres?sslmode=disable", CreateSchema: true}
+	dbCfg := &config.Database{
+		PSN:          "postgres://postgres:postgres@" + container.Addr + "/postgres?sslmode=disable",
+		CreateSchema: true,
+		Log:          true,
+	}
 
 	db, err := pgsql.New(dbCfg)
 	if err != nil {
@@ -79,13 +88,12 @@ func TestNew(t *testing.T) {
 func seedData(t *testing.T, db *pg.DB) {
 
 	dbInsert := `INSERT INTO companies VALUES (1, now(), now(), NULL, 'admin_company', true);
-INSERT INTO locations VALUES (1, now(), now(), NULL, 'admin_location', true, 'admin_address', 1);
 INSERT INTO roles VALUES (1, 1, 'SUPER_ADMIN');
 INSERT INTO roles VALUES (2, 2, 'ADMIN');
 INSERT INTO roles VALUES (3, 3, 'COMPANY_ADMIN');
 INSERT INTO roles VALUES (4, 4, 'LOCATION_ADMIN');
 INSERT INTO roles VALUES (5, 5, 'USER');
-INSERT INTO users VALUES (1, now(),now(), NULL, 'John', 'Doe', 'johndoe', 'hunter2', 'johndoe@mail.com', NULL, NULL, NULL, NULL, NULL, 'loginrefresh',1, 1, 1);`
+INSERT INTO users VALUES (1, now(),now(), NULL, 'John', 'Doe', 'johndoe', 'hunter2', 'johndoe@mail.com', NULL, NULL, NULL, NULL, NULL, 'loginrefresh',1, 1);`
 
 	queries := strings.Split(dbInsert, ";")
 	for _, v := range queries[0 : len(queries)-1] {

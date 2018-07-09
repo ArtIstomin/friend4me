@@ -80,17 +80,15 @@ func (s *Service) Me(c echo.Context) (*model.User, error) {
 func (s *Service) User(c echo.Context) *model.AuthUser {
 	id := c.Get("id").(int)
 	companyID := c.Get("company_id").(int)
-	locationID := c.Get("location_id").(int)
 	user := c.Get("username").(string)
 	email := c.Get("email").(string)
 	role := c.Get("role").(int8)
 	return &model.AuthUser{
-		ID:         id,
-		Username:   user,
-		CompanyID:  companyID,
-		LocationID: locationID,
-		Email:      email,
-		Role:       model.AccessRole(role),
+		ID:        id,
+		Username:  user,
+		CompanyID: companyID,
+		Email:     email,
+		Role:      model.AccessRole(role),
 	}
 }
 
