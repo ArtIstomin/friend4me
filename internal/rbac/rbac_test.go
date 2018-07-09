@@ -129,7 +129,7 @@ func TestEnforceCompany(t *testing.T) {
 	}
 }
 
-func TestUserCreate(t *testing.T) {
+func TestAccountCreate(t *testing.T) {
 	type args struct {
 		ctx        echo.Context
 		roleID     int
@@ -141,27 +141,27 @@ func TestUserCreate(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "Different location, company, creating user role, not an admin",
+			name:    "Different shelter, creating user role, not an admin",
 			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 2, int8(5)), roleID: 5, shelter_id: 7},
 			wantErr: true,
 		},
 		{
-			name:    "Same location, not company, creating user role, not an admin",
+			name:    "Same not shelter, creating user role, not an admin",
 			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 2, int8(5)), roleID: 5, shelter_id: 2},
 			wantErr: true,
 		},
 		{
-			name:    "Different location, company, creating user role, not an admin",
+			name:    "Different shelter, creating user role, not an admin",
 			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 2, int8(3)), roleID: 4, shelter_id: 2},
 			wantErr: false,
 		},
 		{
-			name:    "Same location, company, creating user role, not an admin",
+			name:    "Same shelter, creating user role, not an admin",
 			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 2, int8(3)), roleID: 5, shelter_id: 2},
 			wantErr: false,
 		},
 		{
-			name:    "Same location, company, creating user role, admin",
+			name:    "Same shelter, creating user role, admin",
 			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 2, int8(3)), roleID: 5, shelter_id: 2},
 			wantErr: false,
 		},
@@ -174,7 +174,7 @@ func TestUserCreate(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			rbacSvc := rbac.New(nil)
-			res := rbacSvc.UserCreate(tt.args.ctx, tt.args.roleID, tt.args.shelter_id)
+			res := rbacSvc.AccountCreate(tt.args.ctx, tt.args.roleID, tt.args.shelter_id)
 			assert.Equal(t, tt.wantErr, res == echo.ErrForbidden)
 		})
 	}

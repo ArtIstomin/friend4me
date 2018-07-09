@@ -6,24 +6,12 @@ import (
 
 // User database mock
 type User struct {
-	CreateFn         func(model.User) (*model.User, error)
-	ChangePasswordFn func(*model.User) error
 	ViewFn           func(int) (*model.User, error)
 	FindByEmailFn    func(string) (*model.User, error)
 	FindByTokenFn    func(string) (*model.User, error)
 	ListFn           func(*model.ListQuery, *model.Pagination) ([]model.User, error)
 	DeleteFn         func(*model.User) error
 	UpdateFn         func(*model.User) (*model.User, error)
-}
-
-// Create mock
-func (u *User) Create(usr model.User) (*model.User, error) {
-	return u.CreateFn(usr)
-}
-
-// ChangePassword mock
-func (u *User) ChangePassword(usr *model.User) error {
-	return u.ChangePasswordFn(usr)
 }
 
 // View mock

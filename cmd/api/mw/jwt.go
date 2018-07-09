@@ -94,7 +94,7 @@ func (j *JWT) GenerateToken(u *model.User) (string, string, error) {
 	claims["id"] = u.ID
 	claims["e"] = u.Email
 	claims["r"] = u.Role.AccessLevel
-	claims["c"] = u.ShelterID
+	claims["s"] = u.ShelterID
 	claims["exp"] = expire.Unix()
 
 	tokenString, err := token.SignedString(j.Key)

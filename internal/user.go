@@ -38,10 +38,14 @@ func (u *User) UpdateLastLogin() {
 	u.LastLogin = &t
 }
 
-// UserDB represents user database interface (repository)
-type UserDB interface {
+// AccountDB represents account related database interface (repository)
+type AccountDB interface {
 	Create(User) (*User, error)
 	ChangePassword(*User) error
+}
+
+// UserDB represents user database interface (repository)
+type UserDB interface {
 	View(int) (*User, error)
 	FindByEmail(string) (*User, error)
 	FindByToken(string) (*User, error)

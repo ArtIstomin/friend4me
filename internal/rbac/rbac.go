@@ -55,8 +55,13 @@ func (s *Service) EnforceCompany(c echo.Context, ID int) error {
 	return checkBool(c.Get("shelter_id").(int) == ID)
 }
 
-// UserCreate performs auth check when creating a new user
-func (s *Service) UserCreate(c echo.Context, roleID, shelterID int) error {
+func (s *Service) isCompanyAdmin(c echo.Context) bool {
+	// Must query company ID in database for the given user
+	return !(c.Get("role").(int8) > int8(model.ShelterAdminRole))
+}
+
+// AccountCreate performs auth check when creating a new account
+func (s *Service) AccountCreate(c echo.Context, roleID, shelterID int) error {
 	return s.IsLowerRole(c, model.AccessRole(roleID))
 }
 

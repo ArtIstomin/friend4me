@@ -27,6 +27,6 @@ type RBACService interface {
 	EnforceRole(echo.Context, AccessRole) error
 	EnforceUser(echo.Context, int) error
 	EnforceCompany(echo.Context, int) error
-	UserCreate(echo.Context, int, int) error
+	AccountCreate(echo.Context, int, int) error
 	IsLowerRole(echo.Context, AccessRole) error
 }

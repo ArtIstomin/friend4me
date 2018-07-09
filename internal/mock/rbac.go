@@ -8,12 +8,11 @@ import (
 
 // RBAC Mock
 type RBAC struct {
-	EnforceRoleFn     func(echo.Context, model.AccessRole) error
-	EnforceUserFn     func(echo.Context, int) error
-	EnforceCompanyFn  func(echo.Context, int) error
-	EnforceLocationFn func(echo.Context, int) error
-	UserCreateFn      func(echo.Context, int, int) error
-	IsLowerRoleFn     func(echo.Context, model.AccessRole) error
+	EnforceRoleFn    func(echo.Context, model.AccessRole) error
+	EnforceUserFn    func(echo.Context, int) error
+	EnforceCompanyFn func(echo.Context, int) error
+	AccountCreateFn  func(echo.Context, int, int) error
+	IsLowerRoleFn    func(echo.Context, model.AccessRole) error
 }
 
 // EnforceRole mock
@@ -31,14 +30,9 @@ func (a *RBAC) EnforceCompany(c echo.Context, id int) error {
 	return a.EnforceCompanyFn(c, id)
 }
 
-// EnforceLocation mock
-func (a *RBAC) EnforceLocation(c echo.Context, id int) error {
-	return a.EnforceLocationFn(c, id)
-}
-
-// UserCreate mock
-func (a *RBAC) UserCreate(c echo.Context, roleID, shelterId int) error {
-	return a.UserCreateFn(c, roleID, shelterId)
+// AccountCreate mock
+func (a *RBAC) AccountCreate(c echo.Context, roleID, shelterID int) error {
+	return a.AccountCreateFn(c, roleID, shelterID)
 }
 
 // IsLowerRole mock

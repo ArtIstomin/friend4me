@@ -67,6 +67,10 @@ func TestNew(t *testing.T) {
 		fn   func(t *testing.T, db *pg.DB, log echo.Logger)
 	}{
 		{
+			name: "AccountDB",
+			fn:   testAccountDB,
+		},
+		{
 			name: "UserDB",
 			fn:   testUserDB,
 		},
@@ -91,8 +95,7 @@ func seedData(t *testing.T, db *pg.DB) {
 INSERT INTO roles VALUES (1, 1, 'SUPER_ADMIN');
 INSERT INTO roles VALUES (2, 2, 'ADMIN');
 INSERT INTO roles VALUES (3, 3, 'COMPANY_ADMIN');
-INSERT INTO roles VALUES (4, 4, 'LOCATION_ADMIN');
-INSERT INTO roles VALUES (5, 5, 'USER');
+INSERT INTO roles VALUES (4, 4, 'USER');
 INSERT INTO users VALUES (1, now(),now(), NULL, 'John', 'Doe', 'hunter2', 'johndoe@mail.com', NULL, NULL, NULL, NULL, NULL, 'loginrefresh',1, 1);`
 
 	queries := strings.Split(dbInsert, ";")
