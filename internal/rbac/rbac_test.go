@@ -89,7 +89,7 @@ func TestEnforceUser(t *testing.T) {
 	}
 }
 
-func TestEnforceCompany(t *testing.T) {
+func TestEnforceShelter(t *testing.T) {
 	type args struct {
 		ctx echo.Context
 		id  int
@@ -100,22 +100,22 @@ func TestEnforceCompany(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "Not same company, not an admin",
+			name:    "Not same shelter, not an admin",
 			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 7, int8(5)), id: 9},
 			wantErr: true,
 		},
 		{
-			name:    "Same company, not company admin or admin",
+			name:    "Same shelter, not shelter admin or admin",
 			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 22, int8(5)), id: 22},
 			wantErr: true,
 		},
 		{
-			name:    "Same company, company admin",
+			name:    "Same shelter, shelter admin",
 			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 5, int8(3)), id: 5},
 			wantErr: false,
 		},
 		{
-			name:    "Not same company but admin",
+			name:    "Not same shelter but admin",
 			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 8, int8(2)), id: 9},
 			wantErr: false,
 		},
@@ -123,7 +123,7 @@ func TestEnforceCompany(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			rbacSvc := rbac.New(nil)
-			res := rbacSvc.EnforceCompany(tt.args.ctx, tt.args.id)
+			res := rbacSvc.EnforceShelter(tt.args.ctx, tt.args.id)
 			assert.Equal(t, tt.wantErr, res == echo.ErrForbidden)
 		})
 	}

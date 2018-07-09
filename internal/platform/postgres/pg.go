@@ -37,7 +37,7 @@ func New(cfg *config.Database) (*pg.DB, error) {
 		})
 	}
 	if cfg.CreateSchema {
-		createSchema(db, &model.Company{}, &model.Role{}, &model.User{})
+		createSchema(db, &model.Shelter{}, &model.Role{}, &model.User{})
 	}
 	return db, nil
 }

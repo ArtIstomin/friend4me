@@ -10,7 +10,7 @@ const (
 	// AdminRole has admin specific permissions
 	AdminRole
 
-	// ShelterAdminRole can edit company specific things
+	// ShelterAdminRole can edit shelter specific things
 	ShelterAdminRole
 
 	// AdopterRole is a standard user

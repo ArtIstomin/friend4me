@@ -90,21 +90,21 @@ func TestNew(t *testing.T) {
 }
 
 func seedData(t *testing.T, db *pg.DB) {
-
-	dbInsert := `INSERT INTO companies VALUES (1, now(), now(), NULL, 'admin_company', true);
-INSERT INTO roles VALUES (1, 1, 'SUPER_ADMIN');
-INSERT INTO roles VALUES (2, 2, 'ADMIN');
-INSERT INTO roles VALUES (3, 3, 'COMPANY_ADMIN');
-INSERT INTO roles VALUES (4, 4, 'USER');
-INSERT INTO users VALUES (1, now(),now(), NULL, 'John', 'Doe', 'hunter2', 'johndoe@mail.com', NULL, NULL, NULL, NULL, NULL, 'loginrefresh',1, 1);`
-
+	dbInsert := `
+		INSERT INTO shelters VALUES (1, now(), now(), NULL, 'admin_shelter', true);
+		INSERT INTO roles VALUES (1, 1, 'SUPER_ADMIN');
+		INSERT INTO roles VALUES (2, 2, 'ADMIN');
+		INSERT INTO roles VALUES (3, 3, 'SHELTER_ADMIN');
+		INSERT INTO roles VALUES (4, 4, 'ADOPTER');
+		INSERT INTO users VALUES (1, now(),now(), NULL, 'John', 'Doe', 'hunter2', 'johndoe@mail.com', NULL, NULL, NULL, NULL, NULL, 'loginrefresh', 1, 1);
+	`
 	queries := strings.Split(dbInsert, ";")
+
 	for _, v := range queries[0 : len(queries)-1] {
 		_, err := db.Exec(v)
 		if err != nil {
 			t.Fatalf("Fail on seeding data: %v", err)
 		}
-
 	}
 }
 
