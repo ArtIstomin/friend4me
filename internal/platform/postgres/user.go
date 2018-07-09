@@ -23,18 +23,26 @@ type UserDB struct {
 // Create creates a new user on database
 func (u *UserDB) Create(usr model.User) (*model.User, error) {
 	var user = new(model.User)
-	res, err := u.cl.Query(user, "select id from users where username = ? or email = ? and deleted_at is null", usr.Username, usr.Email)
+	res, err := u.cl.Query(
+		user,
+		"select id from users where email = ? and deleted_at is null",
+		usr.Email,
+	)
+
 	if err != nil {
 		u.log.Error("UserDB Error: %v", err)
 		return nil, err
 	}
+
 	if res.RowsReturned() != 0 {
-		return nil, echo.NewHTTPError(http.StatusInternalServerError, "Username or email already exists.")
+		return nil, echo.NewHTTPError(http.StatusInternalServerError, "Email already exists.")
 	}
+
 	if err := u.cl.Insert(&usr); err != nil {
 		u.log.Error("UserDB Error: %v", err)
 		return nil, err
 	}
+
 	return &usr, nil
 }
 
@@ -60,12 +68,12 @@ func (u *UserDB) View(id int) (*model.User, error) {
 	return user, err
 }
 
-// FindByUsername queries for single user by username
-func (u *UserDB) FindByUsername(uname string) (*model.User, error) {
+// FindByEmail queries for single user by email
+func (u *UserDB) FindByEmail(uname string) (*model.User, error) {
 	var user = new(model.User)
 	sql := `SELECT "user".*, "role"."id" AS "role__id", "role"."access_level" AS "role__access_level", "role"."name" AS "role__name" 
 	FROM "users" AS "user" LEFT JOIN "roles" AS "role" ON "role"."id" = "user"."role_id" 
-	WHERE ("user"."username" = ? and deleted_at is null)`
+	WHERE ("user"."email" = ? and deleted_at is null)`
 	_, err := u.cl.QueryOne(user, sql, uname)
 	if err != nil {
 		u.log.Warnf("UserDB Error: %v", err)

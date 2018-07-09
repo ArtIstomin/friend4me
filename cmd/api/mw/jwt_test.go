@@ -54,7 +54,12 @@ func TestMWFunc(t *testing.T) {
 			wantStatus: http.StatusOK,
 		},
 	}
-	jwtCfg := &config.JWT{Realm: "testRealm", Secret: "jwtsecret", Duration: 60, SigningAlgorithm: "HS256"}
+	jwtCfg := &config.JWT{
+		Realm:            "testRealm",
+		Secret:           "jwtsecret",
+		Duration:         60,
+		SigningAlgorithm: "HS256",
+	}
 	jwtMW := mw.NewJWT(jwtCfg)
 	ts := httptest.NewServer(echoHandler(jwtMW.MWFunc()))
 	defer ts.Close()
@@ -86,17 +91,21 @@ func TestGenerateToken(t *testing.T) {
 				Base: model.Base{
 					ID: 1,
 				},
-				Username: "johndoe",
-				Email:    "johndoe@mail.com",
+				Email: "johndoe@mail.com",
 				Role: &model.Role{
 					AccessLevel: model.SuperAdminRole,
 				},
-				CompanyID: 1,
+				ShelterID: 1,
 			},
 			wantToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
 		},
 	}
-	jwtCfg := &config.JWT{Realm: "testRealm", Secret: "jwtsecret", Duration: 60, SigningAlgorithm: "HS256"}
+	jwtCfg := &config.JWT{
+		Realm:            "testRealm",
+		Secret:           "jwtsecret",
+		Duration:         60,
+		SigningAlgorithm: "HS256",
+	}
 
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {

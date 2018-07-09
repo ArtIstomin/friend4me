@@ -45,8 +45,8 @@ func TestListUsers(t *testing.T) {
 				UserFn: func(c echo.Context) *model.AuthUser {
 					return &model.AuthUser{
 						ID:        1,
-						CompanyID: 2,
-						Role:      model.UserRole,
+						ShelterID: 2,
+						Role:      model.AdopterRole,
 						Email:     "john@mail.com",
 					}
 				}},
@@ -59,7 +59,7 @@ func TestListUsers(t *testing.T) {
 				UserFn: func(c echo.Context) *model.AuthUser {
 					return &model.AuthUser{
 						ID:        1,
-						CompanyID: 2,
+						ShelterID: 2,
 						Role:      model.SuperAdminRole,
 						Email:     "john@mail.com",
 					}
@@ -77,7 +77,7 @@ func TestListUsers(t *testing.T) {
 								FirstName: "John",
 								LastName:  "Doe",
 								Email:     "john@mail.com",
-								CompanyID: 2,
+								ShelterID: 2,
 								Role: &model.Role{
 									ID:          1,
 									AccessLevel: 1,
@@ -93,7 +93,7 @@ func TestListUsers(t *testing.T) {
 								FirstName: "Joanna",
 								LastName:  "Dye",
 								Email:     "joanna@mail.com",
-								CompanyID: 1,
+								ShelterID: 1,
 								Role: &model.Role{
 									ID:          2,
 									AccessLevel: 2,
@@ -117,7 +117,7 @@ func TestListUsers(t *testing.T) {
 						FirstName: "John",
 						LastName:  "Doe",
 						Email:     "john@mail.com",
-						CompanyID: 2,
+						ShelterID: 2,
 						Role: &model.Role{
 							ID:          1,
 							AccessLevel: 1,
@@ -133,7 +133,7 @@ func TestListUsers(t *testing.T) {
 						FirstName: "Joanna",
 						LastName:  "Dye",
 						Email:     "joanna@mail.com",
-						CompanyID: 1,
+						ShelterID: 1,
 						Role: &model.Role{
 							ID:          2,
 							AccessLevel: 2,
@@ -212,7 +212,7 @@ func TestViewUser(t *testing.T) {
 						},
 						FirstName: "John",
 						LastName:  "Doe",
-						Username:  "JohnDoe",
+						Email:     "johndoe@gmail.com",
 					}, nil
 				},
 			},
@@ -225,7 +225,7 @@ func TestViewUser(t *testing.T) {
 				},
 				FirstName: "John",
 				LastName:  "Doe",
-				Username:  "JohnDoe",
+				Email:     "johndoe@gmail.com",
 			},
 		},
 	}
@@ -301,7 +301,7 @@ func TestUpdateUser(t *testing.T) {
 						},
 						FirstName: "John",
 						LastName:  "Doe",
-						Username:  "JohnDoe",
+						Email:     "johndoe@gmail.com",
 						Address:   "Work",
 						Phone:     "332223",
 					}, nil
@@ -321,7 +321,7 @@ func TestUpdateUser(t *testing.T) {
 				},
 				FirstName: "jj",
 				LastName:  "okocha",
-				Username:  "JohnDoe",
+				Email:     "johndoe@gmail.com",
 				Phone:     "321321",
 				Address:   "home",
 				Mobile:    "991991",
@@ -379,7 +379,7 @@ func TestDeleteUser(t *testing.T) {
 				ViewFn: func(id int) (*model.User, error) {
 					return &model.User{
 						Role: &model.Role{
-							AccessLevel: model.CompanyAdminRole,
+							AccessLevel: model.ShelterAdminRole,
 						},
 					}, nil
 				},
@@ -398,7 +398,7 @@ func TestDeleteUser(t *testing.T) {
 				ViewFn: func(id int) (*model.User, error) {
 					return &model.User{
 						Role: &model.Role{
-							AccessLevel: model.CompanyAdminRole,
+							AccessLevel: model.ShelterAdminRole,
 						},
 					}, nil
 				},
@@ -447,14 +447,14 @@ func TestCreate(t *testing.T) {
 	}{
 		{
 			name:       "Invalid request",
-			req:        `{"first_name":"John","last_name":"Doe","username":"juzernejm","password":"hunter123","password_confirm":"hunter1234","email":"johndoe@gmail.com","company_id":1,"role_id":3}`,
+			req:        `{"first_name":"John","last_name":"Doe","password":"hunter123","password_confirm":"hunter1234","email":"johndoe@gmail.com","shelter_id":1,"role_id":3}`,
 			wantStatus: http.StatusBadRequest,
 		},
 		{
 			name: "Fail on userSvc",
-			req:  `{"first_name":"John","last_name":"Doe","username":"juzernejm","password":"hunter123","password_confirm":"hunter123","email":"johndoe@gmail.com","company_id":1,"role_id":2}`,
+			req:  `{"first_name":"John","last_name":"Doe","password":"hunter123","password_confirm":"hunter123","email":"johndoe@gmail.com","shelter_id":1,"role_id":2}`,
 			rbac: &mock.RBAC{
-				UserCreateFn: func(c echo.Context, roleID, companyID int) error {
+				UserCreateFn: func(c echo.Context, roleID, shelterID int) error {
 					return echo.ErrForbidden
 				},
 			},
@@ -462,9 +462,9 @@ func TestCreate(t *testing.T) {
 		},
 		{
 			name: "Success",
-			req:  `{"first_name":"John","last_name":"Doe","username":"juzernejm","password":"hunter123","password_confirm":"hunter123","email":"johndoe@gmail.com","company_id":1,"role_id":2}`,
+			req:  `{"first_name":"John","last_name":"Doe","password":"hunter123","password_confirm":"hunter123","email":"johndoe@gmail.com","shelter_id":1,"role_id":2}`,
 			rbac: &mock.RBAC{
-				UserCreateFn: func(c echo.Context, roleID, companyID int) error {
+				UserCreateFn: func(c echo.Context, roleID, shelterID int) error {
 					return nil
 				},
 			},
@@ -484,9 +484,8 @@ func TestCreate(t *testing.T) {
 				},
 				FirstName: "John",
 				LastName:  "Doe",
-				Username:  "juzernejm",
 				Email:     "johndoe@gmail.com",
-				CompanyID: 1,
+				ShelterID: 1,
 			},
 			wantStatus: http.StatusOK,
 		},

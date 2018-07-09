@@ -20,15 +20,10 @@ func TestLogin(t *testing.T) {
 		wantData *request.Credentials
 	}{
 		{
-			name:    "Fail on binding JSON",
-			wantErr: true,
-			req:     `{"username":"juzernejm"}`,
-		},
-		{
 			name: "Success",
-			req:  `{"username":"juzernejm","password":"hunter123"}`,
+			req:  `{"email":"johndoe@gmail.com","password":"hunter123"}`,
 			wantData: &request.Credentials{
-				Username: "juzernejm",
+				Email:    "johndoe@gmail.com",
 				Password: "hunter123",
 			},
 		},

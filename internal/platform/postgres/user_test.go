@@ -31,8 +31,8 @@ func testUserDB(t *testing.T, c *pg.DB, l echo.Logger) {
 			fn:   testUserView,
 		},
 		{
-			name: "findByUsername",
-			fn:   testUserFindByUsername,
+			name: "findByEmail",
+			fn:   testUserFindByEmail,
 		},
 		{
 			name: "findByToken",
@@ -70,8 +70,7 @@ func testUserCreate(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 			name:    "User already exists",
 			wantErr: true,
 			usr: model.User{
-				Email:    "johndoe@mail.com",
-				Username: "johndoe",
+				Email: "johndoe@mail.com",
 			},
 		},
 		{
@@ -81,9 +80,8 @@ func testUserCreate(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 				Email:     "tomjones@mail.com",
 				FirstName: "Tom",
 				LastName:  "Jones",
-				Username:  "tomjones",
 				RoleID:    1,
-				CompanyID: 1,
+				ShelterID: 1,
 				Password:  "pass",
 				Base: model.Base{
 					ID: 1,
@@ -96,9 +94,8 @@ func testUserCreate(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 				Email:     "tomjones@mail.com",
 				FirstName: "Tom",
 				LastName:  "Jones",
-				Username:  "tomjones",
 				RoleID:    1,
-				CompanyID: 1,
+				ShelterID: 1,
 				Password:  "pass",
 				Base: model.Base{
 					ID: 2,
@@ -108,9 +105,8 @@ func testUserCreate(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 				Email:     "tomjones@mail.com",
 				FirstName: "Tom",
 				LastName:  "Jones",
-				Username:  "tomjones",
 				RoleID:    1,
-				CompanyID: 1,
+				ShelterID: 1,
 				Password:  "pass",
 				Base: model.Base{
 					ID: 2,
@@ -151,9 +147,8 @@ func testChangePassword(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 				Email:     "tomjones@mail.com",
 				FirstName: "Tom",
 				LastName:  "Jones",
-				Username:  "tomjones",
 				RoleID:    1,
-				CompanyID: 1,
+				ShelterID: 1,
 				Password:  "newPass",
 				Base: model.Base{
 					ID: 2,
@@ -195,9 +190,8 @@ func testUserView(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 				Email:     "tomjones@mail.com",
 				FirstName: "Tom",
 				LastName:  "Jones",
-				Username:  "tomjones",
 				RoleID:    1,
-				CompanyID: 1,
+				ShelterID: 1,
 				Password:  "newPass",
 				Base: model.Base{
 					ID: 2,
@@ -223,28 +217,27 @@ func testUserView(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 	}
 }
 
-func testUserFindByUsername(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
+func testUserFindByEmail(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 	cases := []struct {
 		name     string
 		wantErr  bool
-		username string
+		email    string
 		wantData *model.User
 	}{
 		{
-			name:     "User does not exist",
-			wantErr:  true,
-			username: "notExists",
+			name:    "User does not exist",
+			wantErr: true,
+			email:   "notExists",
 		},
 		{
-			name:     "Success",
-			username: "tomjones",
+			name:  "Success",
+			email: "tomjones@mail.com",
 			wantData: &model.User{
 				Email:     "tomjones@mail.com",
 				FirstName: "Tom",
 				LastName:  "Jones",
-				Username:  "tomjones",
 				RoleID:    1,
-				CompanyID: 1,
+				ShelterID: 1,
 				Password:  "newPass",
 				Base: model.Base{
 					ID: 2,
@@ -259,7 +252,7 @@ func testUserFindByUsername(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 	}
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
-			user, err := db.FindByUsername(tt.username)
+			user, err := db.FindByEmail(tt.email)
 			assert.Equal(t, tt.wantErr, err != nil)
 
 			if tt.wantData != nil {
@@ -291,9 +284,8 @@ func testUserFindByToken(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 				Email:     "johndoe@mail.com",
 				FirstName: "John",
 				LastName:  "Doe",
-				Username:  "johndoe",
 				RoleID:    1,
-				CompanyID: 1,
+				ShelterID: 1,
 				Password:  "hunter2",
 				Base: model.Base{
 					ID: 1,
@@ -345,16 +337,15 @@ func testUserList(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 			},
 			qp: &model.ListQuery{
 				ID:    1,
-				Query: "company_id = ?",
+				Query: "shelter_id = ?",
 			},
 			wantData: []model.User{
 				{
 					Email:     "tomjones@mail.com",
 					FirstName: "Tom",
 					LastName:  "Jones",
-					Username:  "tomjones",
 					RoleID:    1,
-					CompanyID: 1,
+					ShelterID: 1,
 					Password:  "newPass",
 					Base: model.Base{
 						ID: 2,
@@ -369,9 +360,8 @@ func testUserList(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 					Email:     "johndoe@mail.com",
 					FirstName: "John",
 					LastName:  "Doe",
-					Username:  "johndoe",
 					RoleID:    1,
-					CompanyID: 1,
+					ShelterID: 1,
 					Password:  "hunter2",
 					Base: model.Base{
 						ID: 1,
@@ -426,9 +416,8 @@ func testUserDelete(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 				Email:     "tomjones@mail.com",
 				FirstName: "Tom",
 				LastName:  "Jones",
-				Username:  "tomjones",
 				RoleID:    1,
-				CompanyID: 1,
+				ShelterID: 1,
 				Password:  "newPass",
 				Base: model.Base{
 					ID: 2,
@@ -480,7 +469,6 @@ func testUserUpdate(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 				Address:   "Address",
 				Phone:     "123456",
 				Mobile:    "345678",
-				Username:  "newUsername",
 			},
 			// Expected wantData:
 			// wantData: &model.User{
@@ -489,7 +477,7 @@ func testUserUpdate(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 			// 	LastName:   "Freak",
 			// 	Username:   "tomjones",
 			// 	RoleID:     1,
-			// 	CompanyID:  1,
+			// 	ShelterID:  1,
 			// 	Password:   "newPass",
 			// 	Address:    "Address",
 			// 	Phone:      "123456",
@@ -501,7 +489,6 @@ func testUserUpdate(t *testing.T, db *pgsql.UserDB, c *pg.DB) {
 			wantData: &model.User{
 				FirstName: "Z",
 				LastName:  "Freak",
-				Username:  "newUsername",
 				Address:   "Address",
 				Phone:     "123456",
 				Mobile:    "345678",

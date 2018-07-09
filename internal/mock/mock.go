@@ -49,7 +49,7 @@ func EchoCtx(r *http.Request, w http.ResponseWriter) echo.Context {
 
 // HeaderValid is used for jwt testing
 func HeaderValid() string {
-	return "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidSI6ImpvaG5kb2UiLCJlIjoiam9obmRvZUBtYWlsLmNvbSIsInIiOjEsImMiOjEsImwiOjEsImV4cCI6NDEwOTMyMDg5NCwiaWF0IjoxNTE2MjM5MDIyfQ.8Fa8mhshx3tiQVzS5FoUXte5lHHC4cvaa_tzvcel38I"
+	return "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidSI6ImpvaG5kb2UiLCJlIjoiam9obmRvZUBtYWlsLmNvbSIsInIiOjEsInMiOjEsImwiOjEsImV4cCI6NDEwOTMyMDg5NCwiaWF0IjoxNTE2MjM5MDIyfQ.KeCYfq7biGYnAS72LXdajYBAx9ujwDIK9gpCNZx3xlw"
 }
 
 // HeaderInvalid is used for jwt testing

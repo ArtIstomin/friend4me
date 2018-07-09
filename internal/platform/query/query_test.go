@@ -27,19 +27,19 @@ func TestList(t *testing.T) {
 			}},
 		},
 		{
-			name: "Company admin user",
+			name: "Shelter admin user",
 			args: args{user: &model.AuthUser{
-				Role:      model.CompanyAdminRole,
-				CompanyID: 1,
+				Role:      model.ShelterAdminRole,
+				ShelterID: 1,
 			}},
 			wantData: &model.ListQuery{
-				Query: "company_id = ?",
+				Query: "shelter_id = ?",
 				ID:    1},
 		},
 		{
-			name: "Normal user",
+			name: "Adopter user",
 			args: args{user: &model.AuthUser{
-				Role: model.UserRole,
+				Role: model.AdopterRole,
 			}},
 			wantErr: echo.ErrForbidden,
 		},

@@ -31,25 +31,25 @@ func TestLogin(t *testing.T) {
 	}{
 		{
 			name:       "Invalid request",
-			req:        `{"username":"juzernejm"}`,
+			req:        `{"email":"johndoe@gmail.com"}`,
 			wantStatus: http.StatusBadRequest,
 		},
 		{
-			name:       "Fail on FindByUsername",
-			req:        `{"username":"juzernejm","password":"hunter123"}`,
+			name:       "Fail on FindByEmail",
+			req:        `{"email":"juzernejm","password":"hunter123"}`,
 			wantStatus: http.StatusInternalServerError,
 			udb: &mockdb.User{
-				FindByUsernameFn: func(string) (*model.User, error) {
+				FindByEmailFn: func(string) (*model.User, error) {
 					return nil, model.ErrGeneric
 				},
 			},
 		},
 		{
 			name:       "Success",
-			req:        `{"username":"juzernejm","password":"hunter123"}`,
+			req:        `{"email":"johndoe@gmail.com","password":"hunter123"}`,
 			wantStatus: http.StatusOK,
 			udb: &mockdb.User{
-				FindByUsernameFn: func(string) (*model.User, error) {
+				FindByEmailFn: func(string) (*model.User, error) {
 					return &model.User{
 						Password: auth.HashPassword("hunter123"),
 						Active:   true,
@@ -119,8 +119,8 @@ func TestRefresh(t *testing.T) {
 			udb: &mockdb.User{
 				FindByTokenFn: func(string) (*model.User, error) {
 					return &model.User{
-						Username: "johndoe",
-						Active:   true,
+						Email:  "johndoe@gmail.com",
+						Active: true,
 					}, nil
 				},
 			},
@@ -184,7 +184,7 @@ func TestMe(t *testing.T) {
 						Base: model.Base{
 							ID: i,
 						},
-						CompanyID: 2,
+						ShelterID: 2,
 						Email:     "john@mail.com",
 						FirstName: "John",
 						LastName:  "Doe",
@@ -196,7 +196,7 @@ func TestMe(t *testing.T) {
 				Base: model.Base{
 					ID: 1,
 				},
-				CompanyID: 2,
+				ShelterID: 2,
 				Email:     "john@mail.com",
 				FirstName: "John",
 				LastName:  "Doe",

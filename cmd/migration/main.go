@@ -13,13 +13,11 @@ import (
 )
 
 func main() {
-	dbInsert := `INSERT INTO public.companies VALUES (1, now(), now(), NULL, 'admin_company', true);
-	INSERT INTO public.locations VALUES (1, now(), now(), NULL, 'admin_location', true, 'admin_address', 1);
+	dbInsert := `INSERT INTO public.companies VALUES (1, now(), now(), NULL, 'admin_shelter', true);
 	INSERT INTO public.roles VALUES (1, 1, 'SUPER_ADMIN');
 	INSERT INTO public.roles VALUES (2, 2, 'ADMIN');
-	INSERT INTO public.roles VALUES (3, 3, 'COMPANY_ADMIN');
-	INSERT INTO public.roles VALUES (4, 4, 'LOCATION_ADMIN');
-	INSERT INTO public.roles VALUES (5, 5, 'USER');`
+	INSERT INTO public.roles VALUES (3, 3, 'SHELTER_ADMIN');
+	INSERT INTO public.roles VALUES (4, 4, 'ADOPTER');`
 	var psn = ``
 	queries := strings.Split(dbInsert, ";")
 

@@ -18,7 +18,7 @@ type Auth struct {
 func NewAuth(svc *auth.Service, e *echo.Echo, mw echo.MiddlewareFunc) {
 	a := Auth{svc}
 	// swagger:route POST /login auth login
-	// Logs in user by username and password.
+	// Logs in user by email and password.
 	// responses:
 	//  200: loginResp
 	//  400: errMsg
@@ -61,7 +61,7 @@ func (a *Auth) login(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	r, err := a.svc.Authenticate(c, cred.Username, cred.Password)
+	r, err := a.svc.Authenticate(c, cred.Email, cred.Password)
 	if err != nil {
 		return err
 	}

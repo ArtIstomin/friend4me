@@ -9,7 +9,6 @@ type User struct {
 	Base
 	FirstName string     `json:"first_name"`
 	LastName  string     `json:"last_name"`
-	Username  string     `json:"username"`
 	Password  string     `json:"-"`
 	Email     string     `json:"email"`
 	Mobile    string     `json:"mobile,omitempty"`
@@ -22,14 +21,13 @@ type User struct {
 	Role *Role `json:"role,omitempty"`
 
 	RoleID    int `json:"-"`
-	CompanyID int `json:"company_id"`
+	ShelterID int `json:"shelter_id,omitempty"`
 }
 
 // AuthUser represents data stored in JWT token for user
 type AuthUser struct {
 	ID        int
-	CompanyID int
-	Username  string
+	ShelterID int
 	Email     string
 	Role      AccessRole
 }
@@ -45,7 +43,7 @@ type UserDB interface {
 	Create(User) (*User, error)
 	ChangePassword(*User) error
 	View(int) (*User, error)
-	FindByUsername(string) (*User, error)
+	FindByEmail(string) (*User, error)
 	FindByToken(string) (*User, error)
 	List(*ListQuery, *Pagination) ([]User, error)
 	Delete(*User) error

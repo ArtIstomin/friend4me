@@ -26,7 +26,7 @@ type Service struct {
 
 // Create creates a new user
 func (s *Service) Create(c echo.Context, req model.User) (*model.User, error) {
-	if err := s.rbac.UserCreate(c, req.RoleID, req.CompanyID); err != nil {
+	if err := s.rbac.UserCreate(c, req.RoleID, req.ShelterID); err != nil {
 		return nil, err
 	}
 	req.Password = auth.HashPassword(req.Password)

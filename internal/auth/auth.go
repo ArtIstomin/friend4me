@@ -29,14 +29,14 @@ type JWT interface {
 	GenerateToken(*model.User) (string, string, error)
 }
 
-// Authenticate tries to authenticate the user provided by username and password
+// Authenticate tries to authenticate the user provided by email and password
 func (s *Service) Authenticate(c echo.Context, user, pass string) (*model.AuthToken, error) {
-	u, err := s.udb.FindByUsername(user)
+	u, err := s.udb.FindByEmail(user)
 	if err != nil {
 		return nil, err
 	}
 	if !HashMatchesPassword(u.Password, pass) {
-		return nil, echo.NewHTTPError(http.StatusUnauthorized, "Username or password does not exist")
+		return nil, echo.NewHTTPError(http.StatusUnauthorized, "Email or password does not exist")
 	}
 
 	if !u.Active {
@@ -79,14 +79,12 @@ func (s *Service) Me(c echo.Context) (*model.User, error) {
 // User returns user data stored in jwt token
 func (s *Service) User(c echo.Context) *model.AuthUser {
 	id := c.Get("id").(int)
-	companyID := c.Get("company_id").(int)
-	user := c.Get("username").(string)
+	shelterID := c.Get("shelter_id").(int)
 	email := c.Get("email").(string)
 	role := c.Get("role").(int8)
 	return &model.AuthUser{
 		ID:        id,
-		Username:  user,
-		CompanyID: companyID,
+		ShelterID: shelterID,
 		Email:     email,
 		Role:      model.AccessRole(role),
 	}

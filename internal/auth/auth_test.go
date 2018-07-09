@@ -15,9 +15,9 @@ import (
 
 func TestAuthenticate(t *testing.T) {
 	type args struct {
-		c    echo.Context
-		user string
-		pass string
+		c     echo.Context
+		email string
+		pass  string
 	}
 	cases := []struct {
 		name     string
@@ -29,22 +29,22 @@ func TestAuthenticate(t *testing.T) {
 	}{
 		{
 			name:    "Fail on finding user",
-			args:    args{user: "juzernejm"},
+			args:    args{email: "juzernejm"},
 			wantErr: true,
 			udb: &mockdb.User{
-				FindByUsernameFn: func(user string) (*model.User, error) {
+				FindByEmailFn: func(email string) (*model.User, error) {
 					return nil, model.ErrGeneric
 				},
 			},
 		},
 		{
 			name:    "Fail on hashing",
-			args:    args{user: "juzernejm", pass: "notHashedPassword"},
+			args:    args{email: "johndoe@gmail.com", pass: "notHashedPassword"},
 			wantErr: true,
 			udb: &mockdb.User{
-				FindByUsernameFn: func(user string) (*model.User, error) {
+				FindByEmailFn: func(email string) (*model.User, error) {
 					return &model.User{
-						Username: user,
+						Email:    email,
 						Password: "HashedPassword",
 					}, nil
 				},
@@ -52,12 +52,12 @@ func TestAuthenticate(t *testing.T) {
 		},
 		{
 			name:    "Inactive user",
-			args:    args{user: "juzernejm", pass: "pass"},
+			args:    args{email: "johndoe@gmail.com", pass: "pass"},
 			wantErr: true,
 			udb: &mockdb.User{
-				FindByUsernameFn: func(user string) (*model.User, error) {
+				FindByEmailFn: func(email string) (*model.User, error) {
 					return &model.User{
-						Username: user,
+						Email:    email,
 						Password: auth.HashPassword("pass"),
 						Active:   false,
 					}, nil
@@ -66,12 +66,12 @@ func TestAuthenticate(t *testing.T) {
 		},
 		{
 			name:    "Fail on token generation",
-			args:    args{user: "juzernejm", pass: "pass"},
+			args:    args{email: "johndoe@gmail.com", pass: "pass"},
 			wantErr: true,
 			udb: &mockdb.User{
-				FindByUsernameFn: func(user string) (*model.User, error) {
+				FindByEmailFn: func(email string) (*model.User, error) {
 					return &model.User{
-						Username: user,
+						Email:    email,
 						Password: auth.HashPassword("pass"),
 						Active:   true,
 					}, nil
@@ -85,12 +85,12 @@ func TestAuthenticate(t *testing.T) {
 		},
 		{
 			name:    "Fail on updating last login",
-			args:    args{user: "juzernejm", pass: "pass"},
+			args:    args{email: "johndoe@gmail.com", pass: "pass"},
 			wantErr: true,
 			udb: &mockdb.User{
-				FindByUsernameFn: func(user string) (*model.User, error) {
+				FindByEmailFn: func(email string) (*model.User, error) {
 					return &model.User{
-						Username: user,
+						Email:    email,
 						Password: auth.HashPassword("pass"),
 						Active:   true,
 					}, nil
@@ -107,11 +107,11 @@ func TestAuthenticate(t *testing.T) {
 		},
 		{
 			name: "Success",
-			args: args{user: "juzernejm", pass: "pass"},
+			args: args{email: "j", pass: "pass"},
 			udb: &mockdb.User{
-				FindByUsernameFn: func(user string) (*model.User, error) {
+				FindByEmailFn: func(email string) (*model.User, error) {
 					return &model.User{
-						Username: user,
+						Email:    email,
 						Password: auth.HashPassword("pass"),
 						Active:   true,
 					}, nil
@@ -134,7 +134,7 @@ func TestAuthenticate(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			s := auth.New(tt.udb, tt.jwt)
-			token, err := s.Authenticate(tt.args.c, tt.args.user, tt.args.pass)
+			token, err := s.Authenticate(tt.args.c, tt.args.email, tt.args.pass)
 			if tt.wantData != nil {
 				tt.wantData.RefreshToken = token.RefreshToken
 				assert.Equal(t, tt.wantData, token)
@@ -173,7 +173,7 @@ func TestRefresh(t *testing.T) {
 			udb: &mockdb.User{
 				FindByTokenFn: func(token string) (*model.User, error) {
 					return &model.User{
-						Username: "username",
+						Email:    "email",
 						Password: "password",
 						Active:   true,
 						Token:    token,
@@ -192,7 +192,7 @@ func TestRefresh(t *testing.T) {
 			udb: &mockdb.User{
 				FindByTokenFn: func(token string) (*model.User, error) {
 					return &model.User{
-						Username: "username",
+						Email:    "email",
 						Password: "password",
 						Active:   true,
 						Token:    token,
@@ -221,12 +221,11 @@ func TestRefresh(t *testing.T) {
 }
 func TestUser(t *testing.T) {
 	ctx := mock.EchoCtxWithKeys([]string{
-		"id", "company_id", "username", "email", "role"},
-		9, 15, "ribice", "ribice@gmail.com", int8(1))
+		"id", "shelter_id", "email", "role"},
+		9, 15, "ribice@gmail.com", int8(1))
 	wantUser := &model.AuthUser{
 		ID:        9,
-		Username:  "ribice",
-		CompanyID: 15,
+		ShelterID: 15,
 		Email:     "ribice@gmail.com",
 		Role:      model.SuperAdminRole,
 	}
@@ -260,8 +259,8 @@ func TestMe(t *testing.T) {
 		{
 			name: "Success",
 			ctx: mock.EchoCtxWithKeys([]string{
-				"id", "company_id", "username", "email", "role",
-			}, 9, 15, "ribice", "ribice@gmail.com", int8(1)),
+				"id", "shelter_id", "email", "role",
+			}, 9, 15, "ribice@gmail.com", int8(1)),
 			udb: &mockdb.User{
 				ViewFn: func(id int) (*model.User, error) {
 					return &model.User{
@@ -273,7 +272,7 @@ func TestMe(t *testing.T) {
 						FirstName: "John",
 						LastName:  "Doe",
 						Role: &model.Role{
-							AccessLevel: model.UserRole,
+							AccessLevel: model.AdopterRole,
 						},
 					}, nil
 				},
@@ -287,7 +286,7 @@ func TestMe(t *testing.T) {
 				FirstName: "John",
 				LastName:  "Doe",
 				Role: &model.Role{
-					AccessLevel: model.UserRole,
+					AccessLevel: model.AdopterRole,
 				},
 			},
 		},

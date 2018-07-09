@@ -34,7 +34,6 @@ func TestCreate(t *testing.T) {
 		args: args{req: model.User{
 			FirstName: "John",
 			LastName:  "Doe",
-			Username:  "JohnDoe",
 			RoleID:    1,
 			Password:  "Thranduil8822",
 		}},
@@ -44,7 +43,6 @@ func TestCreate(t *testing.T) {
 			args: args{req: model.User{
 				FirstName: "John",
 				LastName:  "Doe",
-				Username:  "JohnDoe",
 				RoleID:    1,
 				Password:  "Thranduil8822",
 			}},
@@ -68,7 +66,6 @@ func TestCreate(t *testing.T) {
 				},
 				FirstName: "John",
 				LastName:  "Doe",
-				Username:  "JohnDoe",
 				RoleID:    1,
 			}}}
 	for _, tt := range cases {
@@ -202,7 +199,6 @@ func TestView(t *testing.T) {
 				},
 				FirstName: "John",
 				LastName:  "Doe",
-				Username:  "JohnDoe",
 			},
 			rbac: &mock.RBAC{
 				EnforceUserFn: func(c echo.Context, id int) error {
@@ -219,7 +215,6 @@ func TestView(t *testing.T) {
 							},
 							FirstName: "John",
 							LastName:  "Doe",
-							Username:  "JohnDoe",
 						}, nil
 					}
 					return nil, nil
@@ -260,8 +255,8 @@ func TestList(t *testing.T) {
 				UserFn: func(c echo.Context) *model.AuthUser {
 					return &model.AuthUser{
 						ID:        1,
-						CompanyID: 2,
-						Role:      model.UserRole,
+						ShelterID: 2,
+						Role:      model.AdopterRole,
 					}
 				}}},
 		{
@@ -274,7 +269,7 @@ func TestList(t *testing.T) {
 				UserFn: func(c echo.Context) *model.AuthUser {
 					return &model.AuthUser{
 						ID:        1,
-						CompanyID: 2,
+						ShelterID: 2,
 						Role:      model.AdminRole,
 					}
 				}},
@@ -290,7 +285,6 @@ func TestList(t *testing.T) {
 							FirstName: "John",
 							LastName:  "Doe",
 							Email:     "johndoe@gmail.com",
-							Username:  "johndoe",
 						},
 						{
 							Base: model.Base{
@@ -301,7 +295,6 @@ func TestList(t *testing.T) {
 							FirstName: "Hunter",
 							LastName:  "Logan",
 							Email:     "logan@aol.com",
-							Username:  "hunterlogan",
 						},
 					}, nil
 				}},
@@ -315,7 +308,6 @@ func TestList(t *testing.T) {
 					FirstName: "John",
 					LastName:  "Doe",
 					Email:     "johndoe@gmail.com",
-					Username:  "johndoe",
 				},
 				{
 					Base: model.Base{
@@ -326,7 +318,6 @@ func TestList(t *testing.T) {
 					FirstName: "Hunter",
 					LastName:  "Logan",
 					Email:     "logan@aol.com",
-					Username:  "hunterlogan",
 				}},
 		},
 	}
@@ -380,7 +371,7 @@ func TestDelete(t *testing.T) {
 						FirstName: "John",
 						LastName:  "Doe",
 						Role: &model.Role{
-							AccessLevel: model.UserRole,
+							AccessLevel: model.AdopterRole,
 						},
 					}, nil
 				},
@@ -494,7 +485,7 @@ func TestUpdate(t *testing.T) {
 					CreatedAt: mock.TestTime(1990),
 					UpdatedAt: mock.TestTime(2000),
 				},
-				CompanyID: 1,
+				ShelterID: 1,
 				RoleID:    3,
 				FirstName: "John",
 				LastName:  "Doe",
@@ -512,7 +503,7 @@ func TestUpdate(t *testing.T) {
 								CreatedAt: mock.TestTime(1990),
 								UpdatedAt: mock.TestTime(1991),
 							},
-							CompanyID: 1,
+							ShelterID: 1,
 							RoleID:    3,
 							FirstName: "Joanna",
 							LastName:  "Doep",

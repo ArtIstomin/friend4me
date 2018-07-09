@@ -37,8 +37,8 @@ func (a *RBAC) EnforceLocation(c echo.Context, id int) error {
 }
 
 // UserCreate mock
-func (a *RBAC) UserCreate(c echo.Context, roleID, companyID int) error {
-	return a.UserCreateFn(c, roleID, companyID)
+func (a *RBAC) UserCreate(c echo.Context, roleID, shelterId int) error {
+	return a.UserCreateFn(c, roleID, shelterId)
 }
 
 // IsLowerRole mock

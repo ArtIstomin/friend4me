@@ -29,13 +29,19 @@ func TestEnforceRole(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name:    "Not authorized",
-			args:    args{ctx: mock.EchoCtxWithKeys([]string{"role"}, int8(3)), role: model.SuperAdminRole},
+			name: "Not authorized",
+			args: args{
+				ctx:  mock.EchoCtxWithKeys([]string{"role"}, int8(3)),
+				role: model.SuperAdminRole,
+			},
 			wantErr: true,
 		},
 		{
-			name:    "Authorized",
-			args:    args{ctx: mock.EchoCtxWithKeys([]string{"role"}, int8(0)), role: model.CompanyAdminRole},
+			name: "Authorized",
+			args: args{
+				ctx:  mock.EchoCtxWithKeys([]string{"role"}, int8(0)),
+				role: model.ShelterAdminRole,
+			},
 			wantErr: false,
 		},
 	}
@@ -95,22 +101,22 @@ func TestEnforceCompany(t *testing.T) {
 	}{
 		{
 			name:    "Not same company, not an admin",
-			args:    args{ctx: mock.EchoCtxWithKeys([]string{"company_id", "role"}, 7, int8(5)), id: 9},
+			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 7, int8(5)), id: 9},
 			wantErr: true,
 		},
 		{
 			name:    "Same company, not company admin or admin",
-			args:    args{ctx: mock.EchoCtxWithKeys([]string{"company_id", "role"}, 22, int8(5)), id: 22},
+			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 22, int8(5)), id: 22},
 			wantErr: true,
 		},
 		{
 			name:    "Same company, company admin",
-			args:    args{ctx: mock.EchoCtxWithKeys([]string{"company_id", "role"}, 5, int8(3)), id: 5},
+			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 5, int8(3)), id: 5},
 			wantErr: false,
 		},
 		{
 			name:    "Not same company but admin",
-			args:    args{ctx: mock.EchoCtxWithKeys([]string{"company_id", "role"}, 8, int8(2)), id: 9},
+			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 8, int8(2)), id: 9},
 			wantErr: false,
 		},
 	}
@@ -127,7 +133,7 @@ func TestUserCreate(t *testing.T) {
 	type args struct {
 		ctx        echo.Context
 		roleID     int
-		company_id int
+		shelter_id int
 	}
 	cases := []struct {
 		name    string
@@ -136,39 +142,39 @@ func TestUserCreate(t *testing.T) {
 	}{
 		{
 			name:    "Different location, company, creating user role, not an admin",
-			args:    args{ctx: mock.EchoCtxWithKeys([]string{"company_id", "role"}, 2, int8(5)), roleID: 5, company_id: 7},
+			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 2, int8(5)), roleID: 5, shelter_id: 7},
 			wantErr: true,
 		},
 		{
 			name:    "Same location, not company, creating user role, not an admin",
-			args:    args{ctx: mock.EchoCtxWithKeys([]string{"company_id", "role"}, 2, int8(5)), roleID: 5, company_id: 2},
+			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 2, int8(5)), roleID: 5, shelter_id: 2},
 			wantErr: true,
 		},
 		{
 			name:    "Different location, company, creating user role, not an admin",
-			args:    args{ctx: mock.EchoCtxWithKeys([]string{"company_id", "role"}, 2, int8(3)), roleID: 4, company_id: 2},
+			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 2, int8(3)), roleID: 4, shelter_id: 2},
 			wantErr: false,
 		},
 		{
 			name:    "Same location, company, creating user role, not an admin",
-			args:    args{ctx: mock.EchoCtxWithKeys([]string{"company_id", "role"}, 2, int8(3)), roleID: 5, company_id: 2},
+			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 2, int8(3)), roleID: 5, shelter_id: 2},
 			wantErr: false,
 		},
 		{
 			name:    "Same location, company, creating user role, admin",
-			args:    args{ctx: mock.EchoCtxWithKeys([]string{"company_id", "role"}, 2, int8(3)), roleID: 5, company_id: 2},
+			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 2, int8(3)), roleID: 5, shelter_id: 2},
 			wantErr: false,
 		},
 		{
 			name:    "Different everything, admin",
-			args:    args{ctx: mock.EchoCtxWithKeys([]string{"company_id", "role"}, 2, int8(1)), roleID: 2, company_id: 7},
+			args:    args{ctx: mock.EchoCtxWithKeys([]string{"shelter_id", "role"}, 2, int8(1)), roleID: 2, shelter_id: 7},
 			wantErr: false,
 		},
 	}
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 			rbacSvc := rbac.New(nil)
-			res := rbacSvc.UserCreate(tt.args.ctx, tt.args.roleID, tt.args.company_id)
+			res := rbacSvc.UserCreate(tt.args.ctx, tt.args.roleID, tt.args.shelter_id)
 			assert.Equal(t, tt.wantErr, res == echo.ErrForbidden)
 		})
 	}

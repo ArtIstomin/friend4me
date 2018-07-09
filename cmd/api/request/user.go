@@ -12,12 +12,11 @@ import (
 type Register struct {
 	FirstName       string `json:"first_name" validate:"required"`
 	LastName        string `json:"last_name" validate:"required"`
-	Username        string `json:"username" validate:"required,min=3,alphanum"`
 	Password        string `json:"password" validate:"required,min=8"`
 	PasswordConfirm string `json:"password_confirm" validate:"required"`
 	Email           string `json:"email" validate:"required,email"`
 
-	CompanyID int `json:"company_id" validate:"required"`
+	ShelterID int `json:"shelter_id" validate:"required"`
 	RoleID    int `json:"role_id" validate:"required"`
 }
 
@@ -30,7 +29,7 @@ func UserCreate(c echo.Context) (*Register, error) {
 	if r.Password != r.PasswordConfirm {
 		return nil, echo.NewHTTPError(http.StatusBadRequest, "passwords do not match")
 	}
-	if r.RoleID < int(model.SuperAdminRole) || r.RoleID > int(model.UserRole) {
+	if r.RoleID < int(model.SuperAdminRole) || r.RoleID > int(model.AdopterRole) {
 		return nil, echo.NewHTTPError(http.StatusBadRequest)
 	}
 	return r, nil

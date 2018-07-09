@@ -10,11 +10,11 @@ const (
 	// AdminRole has admin specific permissions
 	AdminRole
 
-	// CompanyAdminRole can edit company specific things
-	CompanyAdminRole
+	// ShelterAdminRole can edit company specific things
+	ShelterAdminRole
 
-	// UserRole is a standard user
-	UserRole
+	// AdopterRole is a standard user
+	AdopterRole
 )
 
 // Role model

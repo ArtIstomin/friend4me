@@ -9,7 +9,7 @@ type User struct {
 	CreateFn         func(model.User) (*model.User, error)
 	ChangePasswordFn func(*model.User) error
 	ViewFn           func(int) (*model.User, error)
-	FindByUsernameFn func(string) (*model.User, error)
+	FindByEmailFn    func(string) (*model.User, error)
 	FindByTokenFn    func(string) (*model.User, error)
 	ListFn           func(*model.ListQuery, *model.Pagination) ([]model.User, error)
 	DeleteFn         func(*model.User) error
@@ -31,9 +31,9 @@ func (u *User) View(id int) (*model.User, error) {
 	return u.ViewFn(id)
 }
 
-// FindByUsername mock
-func (u *User) FindByUsername(username string) (*model.User, error) {
-	return u.FindByUsernameFn(username)
+// FindByEmail mock
+func (u *User) FindByEmail(email string) (*model.User, error) {
+	return u.FindByEmailFn(email)
 }
 
 // FindByToken mock

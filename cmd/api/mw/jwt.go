@@ -50,14 +50,12 @@ func (j *JWT) MWFunc() echo.MiddlewareFunc {
 			claims := token.Claims.(jwt.MapClaims)
 
 			id := int(claims["id"].(float64))
-			companyID := int(claims["c"].(float64))
-			username := claims["u"].(string)
+			shelterID := int(claims["s"].(float64))
 			email := claims["e"].(string)
 			role := int8(claims["r"].(float64))
 
 			c.Set("id", id)
-			c.Set("company_id", companyID)
-			c.Set("username", username)
+			c.Set("shelter_id", shelterID)
 			c.Set("email", email)
 			c.Set("role", role)
 
@@ -94,10 +92,9 @@ func (j *JWT) GenerateToken(u *model.User) (string, string, error) {
 
 	expire := time.Now().Add(j.Duration)
 	claims["id"] = u.ID
-	claims["u"] = u.Username
 	claims["e"] = u.Email
 	claims["r"] = u.Role.AccessLevel
-	claims["c"] = u.CompanyID
+	claims["c"] = u.ShelterID
 	claims["exp"] = expire.Unix()
 
 	tokenString, err := token.SignedString(j.Key)

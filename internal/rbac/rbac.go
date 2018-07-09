@@ -34,7 +34,7 @@ func (s *Service) EnforceRole(c echo.Context, r model.AccessRole) error {
 
 // EnforceUser checks whether the request to change user data is done by the same user
 func (s *Service) EnforceUser(c echo.Context, ID int) error {
-	// TODO: Implement querying db and checking the requested user's company_id
+	// TODO: Implement querying db and checking the requested user's shelter_id
 	// to allow company admins to view the user
 	if s.isAdmin(c) {
 		return nil
@@ -49,14 +49,14 @@ func (s *Service) EnforceCompany(c echo.Context, ID int) error {
 	if s.isAdmin(c) {
 		return nil
 	}
-	if err := s.EnforceRole(c, model.CompanyAdminRole); err != nil {
+	if err := s.EnforceRole(c, model.ShelterAdminRole); err != nil {
 		return err
 	}
-	return checkBool(c.Get("company_id").(int) == ID)
+	return checkBool(c.Get("shelter_id").(int) == ID)
 }
 
 // UserCreate performs auth check when creating a new user
-func (s *Service) UserCreate(c echo.Context, roleID, companyID int) error {
+func (s *Service) UserCreate(c echo.Context, roleID, shelterID int) error {
 	return s.IsLowerRole(c, model.AccessRole(roleID))
 }
 
